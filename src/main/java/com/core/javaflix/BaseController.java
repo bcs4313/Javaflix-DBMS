@@ -37,6 +37,7 @@ public class BaseController {
     @FXML
     public void loginUser(ActionEvent actionEvent) throws SQLException {
         System.out.println("Login Attempted");
+        String email = emailAddressInput.getText();
 
 
         // retrieve session
@@ -44,10 +45,9 @@ public class BaseController {
         var c = DataStreamManager.conn;
         System.out.println(c.getCatalog());
         Statement statement = c.createStatement();
-        ResultSet rs = statement.executeQuery("SELECT * FROM User");
-        //rs.getString("UserID");
-        System.out.println(rs.getMetaData().getColumnCount());
-        System.out.println(rs.getMetaData().getColumnName(1));
+        ResultSet rs = statement.executeQuery("SELECT p320_05.\"User\".\"FirstName\" FROM p320_05.\"User\" WHERE \"Email\" = '" + email + "'");
+        rs.next();
+        System.out.println(rs.getString("FirstName"));
     }
 
     /**

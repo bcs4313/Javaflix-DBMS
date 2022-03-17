@@ -4,6 +4,8 @@ import com.jcraft.jsch.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Properties;
 
 /**
@@ -28,23 +30,8 @@ public class DataStreamManager {
         int lport = 5432;
         String rhost = "starbug.cs.rit.edu";
         int rport = 5432;
-        String user = "bcs4313"; //change to your username
-        byte[] passB = new byte[14];
-        passB[0] = 83;
-        passB[1] = 107;
-        passB[2] = 121;
-        passB[3] = 101;
-        passB[4] = 104;
-        passB[5] = 97;
-        passB[6] = 119;
-        passB[7] = 107;
-        passB[8] = 51;
-        passB[9] = 51;
-        passB[10] = 55;
-        passB[11] = 55;
-        passB[12] = 97;
-        passB[13] = 63;
-        String password = new String(passB);
+        String user = "drs7727"; //change to your username
+        String password = "S$989kn13329";
         String databaseName = "p320_05"; //change to your database name
 
         try {
