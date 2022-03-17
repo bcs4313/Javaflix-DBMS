@@ -40,11 +40,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="400.0" prefWidth="640.0" type="VBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.core.javaflix.BaseController">
   <children>
-      <BorderPane prefHeight="400.0" prefWidth="640.0">
+      <BorderPane fx:id="borderPane" prefHeight="400.0" prefWidth="640.0">
          <center>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <VBox fx:id="innerVBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
                   <Label alignment="CENTER" prefHeight="51.0" prefWidth="344.0" text="Create a New Account">
                      <VBox.margin>
@@ -54,26 +54,26 @@
                         <Font size="17.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="22.0" prefWidth="237.0" text="Display Name" />
-                  <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="237.0">
+                  <Label fx:id="displayNameLabel" prefHeight="22.0" prefWidth="237.0" text="Display Name" />
+                  <TextField fx:id="displayNameInput" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="237.0">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </TextField>
-                  <Label prefHeight="22.0" prefWidth="237.0" text="Email Address" />
-                  <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="237.0" />
-                  <Label prefHeight="17.0" prefWidth="236.0" text="Password">
+                  <Label fx:id="emailAddressLabel" prefHeight="22.0" prefWidth="237.0" text="Email Address" />
+                  <TextField fx:id="emailAddressInput" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="237.0" />
+                  <Label fx:id="passwordLabel" prefHeight="17.0" prefWidth="236.0" text="Password">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="238.0" />
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="48.0" prefWidth="352.0" text="Create Account">
+                  <TextField fx:id="passwordInput" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="238.0" />
+                  <Button fx:id="createAccountButton" alignment="CENTER" mnemonicParsing="false" onAction="#createAccount" prefHeight="48.0" prefWidth="352.0" text="Create Account">
                      <VBox.margin>
                         <Insets top="40.0" />
                      </VBox.margin>
                   </Button>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="351.0" text="Back to Login">
+                  <Button fx:id="backButton" alignment="CENTER" mnemonicParsing="false" onAction="#loginBack" prefHeight="30.0" prefWidth="351.0" text="Back to Login">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
@@ -83,4 +83,4 @@
          </center>
       </BorderPane>
   </children>
-</VBox>
+</fx:root>
