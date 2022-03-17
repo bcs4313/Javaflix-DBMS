@@ -6,6 +6,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class BaseController {
     @FXML
     private Label emailAddressLabel;
@@ -31,8 +35,19 @@ public class BaseController {
      * @param actionEvent contains data regarding the nature of the interaction
      */
     @FXML
-    public void loginUser(ActionEvent actionEvent) {
+    public void loginUser(ActionEvent actionEvent) throws SQLException {
         System.out.println("Login Attempted");
+
+
+        // retrieve session
+        var s = DataStreamManager.session;
+        var c = DataStreamManager.conn;
+        System.out.println(c.getCatalog());
+        Statement statement = c.createStatement();
+        ResultSet rs = statement.executeQuery("SELECT * FROM User");
+        //rs.getString("UserID");
+        System.out.println(rs.getMetaData().getColumnCount());
+        System.out.println(rs.getMetaData().getColumnName(1));
     }
 
     /**
