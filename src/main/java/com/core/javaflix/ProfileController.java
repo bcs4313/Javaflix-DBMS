@@ -29,9 +29,6 @@ public class ProfileController {
     private Label lastNameLabel;
 
     @FXML
-    private Label usernameLabel;
-
-    @FXML
     private Label passwordLabel;
 
     @FXML // contains email address info given by the user
