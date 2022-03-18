@@ -3,6 +3,8 @@ package com.core.javaflix;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.io.IOException;
+
 public class DashboardController {
 
     @FXML
@@ -16,4 +18,15 @@ public class DashboardController {
 
     @FXML
     private TextField searchInput;
+
+    @FXML
+    private void sendToCollections() throws IOException {
+        new CollectionWindow().load();
+    }
+
+    @FXML
+    private void sendToFriends() throws IOException {
+        new CollectionWindow().load();
+    }
+
 }
