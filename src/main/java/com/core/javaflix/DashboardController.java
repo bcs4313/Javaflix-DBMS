@@ -29,4 +29,9 @@ public class DashboardController {
         new FriendsWindow().load();
     }
 
+    @FXML
+    private void sendToProfile() throws IOException {
+        new ProfileWindow().load();
+    }
+
 }

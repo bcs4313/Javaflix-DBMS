@@ -57,7 +57,7 @@ public class ProfileController {
      * Builder that assigns the text fields with the correct
      * information of the user.
      */
-    ProfileController() {
+    public ProfileController() {
         //TODO temp
         int userID = 1001;
 
