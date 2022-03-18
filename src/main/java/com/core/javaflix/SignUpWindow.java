@@ -19,8 +19,8 @@ public class SignUpWindow {
         // load application page
         FXMLLoader fxmlLoader = new FXMLLoader(BaseApplication.class.getResource("signup-page.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 852, 480); // standard 480p window size
-        //BaseApplication.window.setScene(scene);
-        //BaseApplication.window.show();
+        BaseApplication.window.setScene(scene);
+        BaseApplication.window.show();
     }
 
 }
