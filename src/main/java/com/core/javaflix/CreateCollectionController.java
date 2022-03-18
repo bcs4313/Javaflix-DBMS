@@ -15,4 +15,10 @@ public class CreateCollectionController {
         new CollectionWindow().load();
     }
 
+    @FXML
+    private void createCollection()
+    {
+        System.out.println("Ligma");
+    }
+
 }

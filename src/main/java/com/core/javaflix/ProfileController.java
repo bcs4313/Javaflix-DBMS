@@ -58,8 +58,6 @@ public class ProfileController {
      * information of the user.
      */
     public ProfileController() {
-        //TODO temp
-        int userID = 1001;
 
         try {
             var c = DataStreamManager.conn;
@@ -70,7 +68,7 @@ public class ProfileController {
                                                         "p320_05.\"User\".\"Email\", " +
                                                         "p320_05.\"User\".\"Password\" " +
                                                         "FROM p320_05.\"User\" " +
-                                                        "WHERE \"UserID\" = '" + userID + "'");
+                                                        "WHERE \"UserID\" = '" + BaseApplication.storage.userID + "'");
             rs.next();
             userNameInput.setText(rs.getString("UserName"));
             firstNameInput.setText(rs.getString("FirstName"));
@@ -89,8 +87,8 @@ public class ProfileController {
      * @param actionEvent contains data regarding the nature of the interaction
      */
     @FXML
-    public void profileUpdate(ActionEvent actionEvent) {
-        //TODO
+    public void profileUpdate(ActionEvent actionEvent) throws IOException {
+        new DashboardWindow().load();
     }
 
     /**
@@ -99,8 +97,8 @@ public class ProfileController {
      * @param actionEvent contains data regarding the nature of the interaction
      */
     @FXML
-    public void profileCancel(ActionEvent actionEvent) {
-        //TODO
+    public void profileCancel(ActionEvent actionEvent) throws IOException {
+        new DashboardWindow().load();
     }
 
 }
