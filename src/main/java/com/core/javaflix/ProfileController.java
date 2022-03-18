@@ -62,8 +62,7 @@ public class ProfileController {
      * information of the user.
      */
     ProfileController() {
-        //TODO temp
-        int userID = 1001;
+        int userID = BaseApplication.storage.userID;
 
         try {
             var c = DataStreamManager.conn;
@@ -94,7 +93,16 @@ public class ProfileController {
      */
     @FXML
     public void profileUpdate(ActionEvent actionEvent) {
-        //TODO
+        try {
+            var c = DataStreamManager.conn;
+            Statement statement = c.createStatement();
+            statement.execute("Update");
+            System.out.println("Account Updated");
+            BaseApplication.base.load();
+        }
+        catch (SQLException e) {
+            System.out.println("Could not update profile");
+        }
     }
 
     /**
@@ -104,7 +112,7 @@ public class ProfileController {
      */
     @FXML
     public void profileCancel(ActionEvent actionEvent) {
-        //TODO
+        //TODO go back to dashboard without changing profile data
     }
 
 }
