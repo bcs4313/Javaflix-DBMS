@@ -13,7 +13,6 @@ import java.sql.SQLException;
  * Core launching class of the application, connecting to the database
  * and starting the base UI.
  * @author Cody Smith
- * @author Dylan Spence
  */
 public class BaseApplication extends Application {
     public static DataStreamManager dm; // manages connections to the database
