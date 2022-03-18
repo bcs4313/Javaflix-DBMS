@@ -44,10 +44,20 @@ public class BaseController {
         var c = DataStreamManager.conn;
         System.out.println(c.getCatalog());
         Statement statement = c.createStatement();
-        ResultSet rs = statement.executeQuery("SELECT * FROM User");
-        //rs.getString("UserID");
-        System.out.println(rs.getMetaData().getColumnCount());
-        System.out.println(rs.getMetaData().getColumnName(1));
+        ResultSet rs = statement.executeQuery("SELECT p320_05.\"User\".\"Password\" FROM p320_05.\"User\" " +
+                "WHERE \"Email\" = '" + emailAddressInput.getText() + "'");
+        rs.next();
+        try {
+            if (rs.getString("password").equals(passwordInput.getText())) {
+                System.out.println("Login Successful");
+            } else {
+                System.out.println("Login failed (Invalid Password)");
+            }
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Login Failed (Invalid Email Entry)");
+        }
     }
 
     /**
