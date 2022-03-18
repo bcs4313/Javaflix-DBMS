@@ -20,4 +20,8 @@ public class FriendsController {
     public void goToFollowed() throws IOException {
         new FollowedWindow().load();
     }
+
+    public void sentToDashboard() throws IOException {
+        new DashboardWindow().load();
+    }
 }

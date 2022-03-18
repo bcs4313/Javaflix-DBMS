@@ -1,5 +1,6 @@
 package com.core.javaflix;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 
