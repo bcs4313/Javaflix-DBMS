@@ -58,18 +58,17 @@ public class ProfileController {
      * information of the user.
      */
     ProfileController() {
-        int userID = BaseApplication.storage.userID;
 
         try {
             var c = DataStreamManager.conn;
             Statement statement = c.createStatement();
             ResultSet rs = statement.executeQuery(  "SELECT p320_05.\"User\".\"Username\", " +
-                                                        "p320_05.\"User\".\"Firstname\", " +
-                                                        "p320_05.\"User\".\"Lastname\",  " +
-                                                        "p320_05.\"User\".\"Email\", " +
-                                                        "p320_05.\"User\".\"Password\" " +
-                                                        "FROM p320_05.\"User\" " +
-                                                        "WHERE \"UserID\" = '" + userID + "'");
+                    "p320_05.\"User\".\"Firstname\", " +
+                    "p320_05.\"User\".\"Lastname\",  " +
+                    "p320_05.\"User\".\"Email\", " +
+                    "p320_05.\"User\".\"Password\" " +
+                    "FROM p320_05.\"User\" " +
+                    "WHERE \"UserID\" = '" + BaseApplication.storage.userID + "'");
             rs.next();
             userNameInput.setText(rs.getString("UserName"));
             firstNameInput.setText(rs.getString("FirstName"));
@@ -92,7 +91,13 @@ public class ProfileController {
         try {
             var c = DataStreamManager.conn;
             Statement statement = c.createStatement();
-            statement.execute("Update");
+            statement.execute("UPDATE  p320_05.\"User\"" +
+                    "SET \"Username\" = " + userNameInput.getText() + ", " +
+                    "\"Firstname\" = " + firstNameInput.getText() + ", " +
+                    "\"Lastname\" = " + lastNameInput.getText() + ", " +
+                    "\"Email\" = " + emailInput.getText() + ", " +
+                    "\"Password\" = " + passwordInput.getText() + " " +
+                    "WHERE \"UserID\" = '" + BaseApplication.storage.userID + "'");
             System.out.println("Account Updated");
             BaseApplication.base.load();
         }
