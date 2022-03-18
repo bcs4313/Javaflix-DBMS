@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #748c89;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #748c89;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.core.javaflix.DashboardController">
    <top>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -21,10 +21,10 @@
                   </Button>
                </right>
                <center>
-                  <Button fx:id="collectoinButton" mnemonicParsing="false" prefHeight="34.0" prefWidth="166.0" text="Collections" BorderPane.alignment="CENTER" />
+                  <Button fx:id="collectoinButton" mnemonicParsing="false" onAction="#sendToCollections" prefHeight="34.0" prefWidth="166.0" text="Collections" BorderPane.alignment="CENTER" />
                </center>
                <left>
-                  <Button fx:id="friendsButton" mnemonicParsing="false" prefHeight="32.0" prefWidth="105.0" text="Friends" BorderPane.alignment="CENTER">
+                  <Button fx:id="friendsButton" mnemonicParsing="false" onAction="#sendToFriends" prefHeight="32.0" prefWidth="105.0" text="Friends" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets left="50.0" />
                      </BorderPane.margin>
