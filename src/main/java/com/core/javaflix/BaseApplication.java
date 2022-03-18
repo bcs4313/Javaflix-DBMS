@@ -2,7 +2,6 @@ package com.core.javaflix;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -14,14 +13,15 @@ import java.sql.SQLException;
  * Core launching class of the application, connecting to the database
  * and starting the base UI.
  * @author Cody Smith
- * @author Dylan Spence
  */
 public class BaseApplication extends Application {
-    public static DataStreamManager dm;
+    public static DataStreamManager dm; // manages connections to the database
+    public static Stage window; // window of our application to load scenes in
+    public static BaseApplication base; // base login window
 
     /**
      * Starting point of our application.
-     * Initializes a data stream to the database and
+     * Initializes a data strea to the database and
      * opens the login window within the JavaFX stage
      * @param stage mainframe for hosting interactive UI elements
      * @throws IOException exception occurs when the fxml page fails to load
@@ -30,15 +30,37 @@ public class BaseApplication extends Application {
     public void start(Stage stage) throws IOException {
         // initialize a data stream to the JavaFlix database
         DataStreamManager streamManager = new DataStreamManager();
+        base = this;
         if(streamManager.establishConnection()) // if the streamManager successfully connects
         {
             // load application page
-            SceneController sc = new SceneController();
-            sc.bootUp(stage);
+            FXMLLoader fxmlLoader = new FXMLLoader(BaseApplication.class.getResource("login-page.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 852, 480); // standard 480p window size
+            stage.setTitle("JavaFlix");
+            stage.setScene(scene);
+            window = stage;
+            stage.show();
         }
         else
         {
             System.err.println("Stopped Application Loading Process (connection failure)");
+        }
+    }
+
+    /**
+     * load this window into the main stage (manually called)
+     */
+    public void load() {
+        try {
+            // load application page
+            FXMLLoader fxmlLoader = new FXMLLoader(BaseApplication.class.getResource("login-page.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 852, 480); // standard 480p window size
+            BaseApplication.window.setScene(scene);
+            BaseApplication.window.show();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
         }
     }
 

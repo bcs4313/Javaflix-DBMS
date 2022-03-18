@@ -13,21 +13,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
 public class BaseController {
-    private SceneController sc;
-
     @FXML
     private Label emailAddressLabel;
 
     @FXML
     private Label passwordLabel;
-
-    @FXML
-    private Button loginButton;
-
-    @FXML
-    private Button createAccountButton;
 
     @FXML // contains email address info given by the user
     private TextField emailAddressInput;
@@ -36,12 +27,10 @@ public class BaseController {
     private TextField passwordInput;
 
     @FXML
-    private Button searchButton;
+    private Button loginButton;
 
-    //builder method for the class
-    public BaseController() {
-        sc = new SceneController();
-    }
+    @FXML
+    private Button createAccountButton;
 
     /**
      * Listener for when the user clicks on the "Login" button
@@ -52,9 +41,7 @@ public class BaseController {
     public void loginUser(ActionEvent actionEvent) throws SQLException {
         System.out.println("Login Attempted");
 
-
         // retrieve session
-        var s = DataStreamManager.session;
         var c = DataStreamManager.conn;
         System.out.println(c.getCatalog());
         Statement statement = c.createStatement();
@@ -64,13 +51,6 @@ public class BaseController {
         try {
             if (rs.getString("password").equals(passwordInput.getText())) {
                 System.out.println("Login Successful");
-                //TODO send to home page
-                try {
-                    sc.goToHome(actionEvent);
-                }
-                catch (IOException e) {
-                    System.out.println("Failed to load home page");
-                }
             } else {
                 System.out.println("Login failed (Invalid Password)");
             }
@@ -82,21 +62,15 @@ public class BaseController {
     }
 
     /**
-     * Listener for when the user clicks on the "Search Movies" button
-     * a new page is expected to load to search through the movie library.
-     * @param actionEvent contains data regarding the nature of the interaction
-     */
-    public void searchMovies(ActionEvent actionEvent) throws IOException{
-        sc.goToSearch(actionEvent);
-    }
-
-    /**
      * Listener for when the user clicks on the "Create Account" button
      * a new page is expected to load to enter info for the new account.
      * @param actionEvent contains data regarding the nature of the interaction
      */
     @FXML
-    public void sendToAccountCreation(ActionEvent actionEvent) {
+    public void sendToAccountCreation(ActionEvent actionEvent) throws IOException {
         System.out.println("Create Account Button Clicked");
+
+        // load a scene and place it within our base application
+        new SignUpWindow().load();
     }
 }
