@@ -26,7 +26,7 @@ public class DashboardController {
 
     @FXML
     private void sendToFriends() throws IOException {
-        new CollectionWindow().load();
+        new FriendsWindow().load();
     }
 
 }

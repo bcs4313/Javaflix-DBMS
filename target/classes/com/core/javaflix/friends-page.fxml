@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Text?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.core.javaflix.FriendsController">
+   <left>
+      <Button mnemonicParsing="false" onAction="#goToFans" prefHeight="80.0" prefWidth="195.0" text="Fans" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets left="40.0" />
+         </BorderPane.margin>
+      </Button>
+   </left>
+   <right>
+      <Button mnemonicParsing="false" onAction="#goToFollowed" prefHeight="80.0" prefWidth="195.0" text="Followed" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets right="40.0" />
+         </BorderPane.margin>
+      </Button>
+   </right>
+   <top>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Friends" wrappingWidth="42.16210956573468" BorderPane.alignment="CENTER" />
+   </top>
+</BorderPane>

@@ -18,10 +18,6 @@ import java.text.ParseException;
 import java.util.Calendar;
 
 public class ProfileController {
-
-    @FXML
-    private Label usernameLabel;
-
     @FXML
     private Label firstNameLabel;
 
