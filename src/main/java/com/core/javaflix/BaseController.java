@@ -51,13 +51,15 @@ public class BaseController {
         try {
             if (rs.getString("password").equals(passwordInput.getText())) {
                 System.out.println("Login Successful");
+                new DashboardWindow().load();
             } else {
                 System.out.println("Login failed (Invalid Password)");
             }
         }
-        catch (SQLException e)
+        catch (SQLException | IOException e)
         {
             System.out.println("Login Failed (Invalid Email Entry)");
+            e.printStackTrace();
         }
     }
 
