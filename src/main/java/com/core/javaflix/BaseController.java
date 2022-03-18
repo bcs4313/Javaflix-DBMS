@@ -2,15 +2,21 @@ package com.core.javaflix;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+
 public class BaseController {
+    private SceneController sc;
+
     @FXML
     private Label emailAddressLabel;
 
@@ -28,6 +34,14 @@ public class BaseController {
 
     @FXML // contains email address info given by the user
     private TextField passwordInput;
+
+    @FXML
+    private Button searchButton;
+
+    //builder method for the class
+    public BaseController() {
+        sc = new SceneController();
+    }
 
     /**
      * Listener for when the user clicks on the "Login" button
@@ -50,6 +64,13 @@ public class BaseController {
         try {
             if (rs.getString("password").equals(passwordInput.getText())) {
                 System.out.println("Login Successful");
+                //TODO send to home page
+                try {
+                    sc.goToHome(actionEvent);
+                }
+                catch (IOException e) {
+                    System.out.println("Failed to load home page");
+                }
             } else {
                 System.out.println("Login failed (Invalid Password)");
             }
@@ -58,6 +79,15 @@ public class BaseController {
         {
             System.out.println("Login Failed (Invalid Email Entry)");
         }
+    }
+
+    /**
+     * Listener for when the user clicks on the "Search Movies" button
+     * a new page is expected to load to search through the movie library.
+     * @param actionEvent contains data regarding the nature of the interaction
+     */
+    public void searchMovies(ActionEvent actionEvent) throws IOException{
+        sc.goToSearch(actionEvent);
     }
 
     /**

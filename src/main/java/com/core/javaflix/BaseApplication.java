@@ -2,6 +2,7 @@ package com.core.javaflix;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -19,7 +20,7 @@ public class BaseApplication extends Application {
 
     /**
      * Starting point of our application.
-     * Initializes a data strea to the database and
+     * Initializes a data stream to the database and
      * opens the login window within the JavaFX stage
      * @param stage mainframe for hosting interactive UI elements
      * @throws IOException exception occurs when the fxml page fails to load
@@ -31,11 +32,8 @@ public class BaseApplication extends Application {
         if(streamManager.establishConnection()) // if the streamManager successfully connects
         {
             // load application page
-            FXMLLoader fxmlLoader = new FXMLLoader(BaseApplication.class.getResource("login-page.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 852, 480); // standard 480p window size
-            stage.setTitle("JavaFlix");
-            stage.setScene(scene);
-            stage.show();
+            SceneController sc = new SceneController();
+            sc.bootUp(stage);
         }
         else
         {
