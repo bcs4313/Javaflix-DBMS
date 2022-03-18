@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 /**
@@ -18,6 +17,7 @@ public class BaseApplication extends Application {
     public static DataStreamManager dm; // manages connections to the database
     public static Stage window; // window of our application to load scenes in
     public static BaseApplication base; // base login window
+    public static AppStorage storage = new AppStorage();
 
     /**
      * Starting point of our application.

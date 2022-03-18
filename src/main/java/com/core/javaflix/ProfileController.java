@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -25,25 +26,72 @@ public class ProfileController {
     private Label lastNameLabel;
 
     @FXML
-    private Label usernameLabel;
+    private Label emailLabel;
 
     @FXML
     private Label passwordLabel;
 
-    @FXML // contains email address info given by the user
+    @FXML // contains email address of the user
     private TextField userNameInput;
 
+    @FXML // contains the first name of the user
+    private TextField firstNameInput;
+
+    @FXML // contains the last name of the user
+    private TextField lastNameInput;
+
     @FXML // contains email address info given by the user
-    private TextField emailAddressInput;
+    private TextField emailInput;
 
     @FXML // contains email address info given by the user
     private TextField passwordInput;
 
-    @FXML
-    private Button loginButton;
+    @FXML //button to update the user's information
+    private Button updateButton;
 
+    @FXML //button to update the user's information
+    private Button cancelButton;
+
+
+    /**
+     * Builder that assigns the text fields with the correct
+     * information of the user.
+     */
+    ProfileController() {
+        //TODO temp
+        int userID = 1001;
+
+        try {
+            var c = DataStreamManager.conn;
+            Statement statement = c.createStatement();
+            ResultSet rs = statement.executeQuery(  "SELECT p320_05.\"User\".\"Username\", " +
+                                                        "p320_05.\"User\".\"Firstname\", " +
+                                                        "p320_05.\"User\".\"Lastname\",  " +
+                                                        "p320_05.\"User\".\"Email\", " +
+                                                        "p320_05.\"User\".\"Password\" " +
+                                                        "FROM p320_05.\"User\" " +
+                                                        "WHERE \"UserID\" = '" + userID + "'");
+            rs.next();
+            userNameInput.setText(rs.getString("UserName"));
+            firstNameInput.setText(rs.getString("FirstName"));
+            lastNameInput.setText(rs.getString("LastName"));
+            emailInput.setText(rs.getString("Email"));
+            passwordInput.setText(rs.getString("Password"));
+        }
+        catch (SQLException e){
+            System.out.println("Failed to get profile information");
+        }
+    }
+
+    /**
+     * Listener for when the user clicks on the "update" button
+     * redirect user to login page
+     * @param actionEvent contains data regarding the nature of the interaction
+     */
     @FXML
-    private Button backButton;
+    public void profileUpdate(ActionEvent actionEvent) {
+        //TODO
+    }
 
     /**
      * Listener for when the user clicks on the "back" button
@@ -51,46 +99,8 @@ public class ProfileController {
      * @param actionEvent contains data regarding the nature of the interaction
      */
     @FXML
-    public void loginBack(ActionEvent actionEvent) {
-        //BaseApplication.base.load();
+    public void profileCancel(ActionEvent actionEvent) {
+        //TODO
     }
 
-    /**
-     * Listener for when the user clicks on the "Create Account" button
-     * redirect user to login page afterwards
-     * @param actionEvent contains data regarding the nature of the interaction
-     * @return if account creation was successful
-     */
-    @FXML
-    public boolean createAccount(ActionEvent actionEvent) {
-        try {
-            //@todo auto increment user id instead of generating it here
-            // now to generate all user information to insert into the 'User' Table
-            int userID = new Random().nextInt(9999);
-            String userName = userNameInput.getText();
-            String email = emailAddressInput.getText();
-            String password = passwordInput.getText();
-            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            Calendar obj = Calendar.getInstance();
-            String creationDate = formatter.format(obj.getTime());
-            System.out.println("Current Date: " + creationDate);
-
-            var c = DataStreamManager.conn;
-            Statement statement = c.createStatement();
-            statement.execute("INSERT INTO p320_05.\"User\" VALUES " +
-                    "(" + userID + ",'" + userName + "', '" + email + "',\n" +
-                    "null, null,\n" +
-                    "CAST('" + creationDate + "' AS DATE),\n" +
-                    "CAST('" + creationDate + "' AS DATE)\n" +
-                    ", '" + password + "')");
-            System.out.println("Account Created");
-            //BaseApplication.base.load();
-            return true;
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            return false;
-        }
-    }
 }
