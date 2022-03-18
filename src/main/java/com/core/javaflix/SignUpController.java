@@ -49,7 +49,7 @@ public class SignUpController {
      */
     @FXML
     public void loginBack(ActionEvent actionEvent) {
-        BaseApplication.base.load();
+        //BaseApplication.base.load();
     }
 
     /**
@@ -81,7 +81,7 @@ public class SignUpController {
                     "CAST('" + creationDate + "' AS DATE)\n" +
                     ", '" + password + "')");
             System.out.println("Account Created");
-            BaseApplication.base.load();
+            //BaseApplication.base.load();
             return true;
         }
         catch (Exception e)
