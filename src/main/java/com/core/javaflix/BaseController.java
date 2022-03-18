@@ -2,10 +2,13 @@ package com.core.javaflix;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,17 +20,17 @@ public class BaseController {
     @FXML
     private Label passwordLabel;
 
-    @FXML
-    private Button loginButton;
-
-    @FXML
-    private Button createAccountButton;
-
     @FXML // contains email address info given by the user
     private TextField emailAddressInput;
 
     @FXML // contains email address info given by the user
     private TextField passwordInput;
+
+    @FXML
+    private Button loginButton;
+
+    @FXML
+    private Button createAccountButton;
 
     /**
      * Listener for when the user clicks on the "Login" button
@@ -37,17 +40,25 @@ public class BaseController {
     @FXML
     public void loginUser(ActionEvent actionEvent) throws SQLException {
         System.out.println("Login Attempted");
-        String email = emailAddressInput.getText();
-
 
         // retrieve session
-        var s = DataStreamManager.session;
         var c = DataStreamManager.conn;
         System.out.println(c.getCatalog());
         Statement statement = c.createStatement();
-        ResultSet rs = statement.executeQuery("SELECT p320_05.\"User\".\"FirstName\" FROM p320_05.\"User\" WHERE \"Email\" = '" + email + "'");
+        ResultSet rs = statement.executeQuery("SELECT p320_05.\"User\".\"Password\" FROM p320_05.\"User\" " +
+                "WHERE \"Email\" = '" + emailAddressInput.getText() + "'");
         rs.next();
-        System.out.println(rs.getString("FirstName"));
+        try {
+            if (rs.getString("password").equals(passwordInput.getText())) {
+                System.out.println("Login Successful");
+            } else {
+                System.out.println("Login failed (Invalid Password)");
+            }
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Login Failed (Invalid Email Entry)");
+        }
     }
 
     /**
@@ -56,7 +67,10 @@ public class BaseController {
      * @param actionEvent contains data regarding the nature of the interaction
      */
     @FXML
-    public void sendToAccountCreation(ActionEvent actionEvent) {
+    public void sendToAccountCreation(ActionEvent actionEvent) throws IOException {
         System.out.println("Create Account Button Clicked");
+
+        // load a scene and place it within our base application
+        new SignUpWindow().load();
     }
 }
