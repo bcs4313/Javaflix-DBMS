@@ -57,18 +57,20 @@ public class ProfileController {
      * Builder that assigns the text fields with the correct
      * information of the user.
      */
-    ProfileController() {
+    public ProfileController() {
+        //TODO temp
+        int userID = 1001;
 
         try {
             var c = DataStreamManager.conn;
             Statement statement = c.createStatement();
             ResultSet rs = statement.executeQuery(  "SELECT p320_05.\"User\".\"Username\", " +
-                    "p320_05.\"User\".\"Firstname\", " +
-                    "p320_05.\"User\".\"Lastname\",  " +
-                    "p320_05.\"User\".\"Email\", " +
-                    "p320_05.\"User\".\"Password\" " +
-                    "FROM p320_05.\"User\" " +
-                    "WHERE \"UserID\" = '" + BaseApplication.storage.userID + "'");
+                                                        "p320_05.\"User\".\"Firstname\", " +
+                                                        "p320_05.\"User\".\"Lastname\",  " +
+                                                        "p320_05.\"User\".\"Email\", " +
+                                                        "p320_05.\"User\".\"Password\" " +
+                                                        "FROM p320_05.\"User\" " +
+                                                        "WHERE \"UserID\" = '" + userID + "'");
             rs.next();
             userNameInput.setText(rs.getString("UserName"));
             firstNameInput.setText(rs.getString("FirstName"));
@@ -88,22 +90,7 @@ public class ProfileController {
      */
     @FXML
     public void profileUpdate(ActionEvent actionEvent) {
-        try {
-            var c = DataStreamManager.conn;
-            Statement statement = c.createStatement();
-            statement.execute("UPDATE  p320_05.\"User\"" +
-                    "SET \"Username\" = " + userNameInput.getText() + ", " +
-                    "\"Firstname\" = " + firstNameInput.getText() + ", " +
-                    "\"Lastname\" = " + lastNameInput.getText() + ", " +
-                    "\"Email\" = " + emailInput.getText() + ", " +
-                    "\"Password\" = " + passwordInput.getText() + " " +
-                    "WHERE \"UserID\" = '" + BaseApplication.storage.userID + "'");
-            System.out.println("Account Updated");
-            BaseApplication.base.load();
-        }
-        catch (SQLException e) {
-            System.out.println("Could not update profile");
-        }
+        //TODO
     }
 
     /**
@@ -113,7 +100,7 @@ public class ProfileController {
      */
     @FXML
     public void profileCancel(ActionEvent actionEvent) {
-        //TODO go back to dashboard without changing profile data
+        //TODO
     }
 
 }

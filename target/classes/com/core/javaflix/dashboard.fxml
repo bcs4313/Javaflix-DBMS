@@ -14,7 +14,7 @@
          <children>
             <BorderPane prefHeight="69.0" prefWidth="650.0">
                <right>
-                  <Button fx:id="profileButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="98.0" text="Profile" BorderPane.alignment="CENTER">
+                  <Button fx:id="profileButton" mnemonicParsing="false" onAction="#sendToProfile" prefHeight="30.0" prefWidth="98.0" text="Profile" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets right="50.0" />
                      </BorderPane.margin>
