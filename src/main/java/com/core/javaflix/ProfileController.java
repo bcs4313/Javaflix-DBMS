@@ -66,7 +66,7 @@ public class ProfileController {
             Statement statement = c.createStatement();
             ResultSet rs = statement.executeQuery(  "SELECT * " +
                     "FROM p320_05.\"User\"" +
-                    "WHERE \"UserID\" = '" + 1003 + "';");
+                    "WHERE \"UserID\" = '" + BaseApplication.storage.userID + "';");
 
             rs.next();
 
@@ -97,7 +97,7 @@ public class ProfileController {
                     "\"LastName\" = '" + lastNameInput.getText() + "', " +
                     "\"Email\" = '" + emailInput.getText() + "', " +
                     "\"Password\" = '" + passwordInput.getText() + "' " +
-                    "WHERE \"UserID\" = '" + 1003 + "';");
+                    "WHERE \"UserID\" = '" + BaseApplication.storage.userID + "';");
         }
         catch (SQLException e) {
             System.out.println("Failed to update profile information");
