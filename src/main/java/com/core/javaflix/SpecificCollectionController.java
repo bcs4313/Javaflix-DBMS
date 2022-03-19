@@ -54,16 +54,19 @@ public class SpecificCollectionController {
         var c = DataStreamManager.conn;
         System.out.println(c.getCatalog());
         Statement statement = c.createStatement();
-        ResultSet rs = statement.executeQuery("");
-        rs.next();
-        collectionName.setText(rs.getString(1) + "SELECT p320_05.\"CollectionMovie\".\"MovieID\" FROM p320_05.\"CollectionMovie\" WHERE \"CollectionID\" = 4");
+        Statement statement2 = c.createStatement();
+        ResultSet rs = statement.executeQuery("SELECT p320_05.\"CollectionMovie\".\"MovieID\" FROM p320_05.\"CollectionMovie\" WHERE \"CollectionID\" = " + AppStorage.collectionID + "");
+        collectionName.setText(AppStorage.collectionName + "");
 
         while(rs.next())
         {
-            Button button = new Button(rs.getString("CollectionName"));
+            int movieid = Integer.valueOf(rs.getString("MovieID"));
+            ResultSet ms = statement2.executeQuery("SELECT p320_05.\"Movie\".\"Title\" FROM p320_05.\"Movie\" WHERE \"MovieID\" = " + movieid + "");
+            ms.next();
+            Button button = new Button(ms.getString("Title"));
             button.setOnAction(buttonHandler);
             buttonList.add(button);
-            //buttonID.add();
+            buttonID.add(movieid);
             movieList.getChildren().add(button);
         }
     }
