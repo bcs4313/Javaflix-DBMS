@@ -1,19 +1,35 @@
 package com.core.javaflix;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public class User {
-    private String email = null;
-    private String username = null;
-    private String name = null;
-    private Button button = null;
+import java.io.IOException;
 
-    public User(String email, String username, String name) {
+public class User {
+    private int userID;
+    private String email;
+    private String username;
+    private String name;
+    private Button button;
+
+    public User(int userID, String email, String username, String name) {
+        this.userID = userID;
         this.email = email;
         this.username = username;
         this.name = name;
         this.button = new Button("Visit");
+        try {
+            this.button.setOnAction(actionEvent -> {
+                try {
+                    this.visitUser(this.userID);
+                } catch (IOException e) {
+                }
+            });
+        }
+        catch (Exception e) {
+
+        }
     }
 
     public String getEmail() {
@@ -46,5 +62,29 @@ public class User {
 
     public void setButton(Button button) {
         this.button = button;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    /**
+     * Listener for when the user clicks on the "visit" button
+     * redirect user to friends page
+     */
+    @FXML
+    public static void visitUser(int userID) throws IOException {
+        try {
+            BaseApplication.storage.search = "";
+            BaseApplication.storage.otherID = userID;
+            new UserWindow().load();
+        }
+        catch (Exception e) {
+
+        }
     }
 }

@@ -69,7 +69,8 @@ public class UserSearchController {
                     "WHERE \"Email\" LIKE '%" + BaseApplication.storage.search + "%';");
 
             while (rs.next()) {
-                list.add(new User(rs.getString("Email"),
+                list.add(new User(rs.getInt("UserID"),
+                        rs.getString("Email"),
                         rs.getString("Username"),
                         rs.getString("FirstName") +  " " + rs.getString("LastName")));
             }
@@ -104,17 +105,6 @@ public class UserSearchController {
      */
     @FXML
     public void goBack(ActionEvent actionEvent) throws IOException {
-        BaseApplication.storage.search = "";
-        new FriendsWindow().load();
-    }
-
-    /**
-     * Listener for when the user clicks on the "visit" button
-     * redirect user to friends page
-     * @param actionEvent contains data regarding the nature of the interaction
-     */
-    @FXML
-    public static void visitUser(ActionEvent actionEvent) throws IOException {
         BaseApplication.storage.search = "";
         new FriendsWindow().load();
     }
