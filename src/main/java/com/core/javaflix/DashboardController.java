@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class DashboardController {
 
@@ -20,7 +21,7 @@ public class DashboardController {
     private TextField searchInput;
 
     @FXML
-    private void sendToCollections() throws IOException {
+    private void sendToCollections() throws IOException, SQLException {
         new CollectionWindow().load();
     }
 

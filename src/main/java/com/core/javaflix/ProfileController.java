@@ -1,5 +1,10 @@
 package com.core.javaflix;
 
+import com.core.javaflix.DashboardWindow;
+import com.core.javaflix.DataStreamManager;
+import com.core.javaflix.DashboardWindow;
+import com.core.javaflix.BaseApplication;
+import com.core.javaflix.DataStreamManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,15 +13,12 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 // generating values
-import java.util.Random;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
-import java.util.Calendar;
+
 
 public class ProfileController {
     @FXML
@@ -54,23 +56,20 @@ public class ProfileController {
 
 
     /**
-     * Builder that assigns the text fields with the correct
-     * information of the user.
+     * initialize the page with this information.
      */
-    public ProfileController() {
-
+    @FXML
+    public void initialize() {
         try {
             var c = DataStreamManager.conn;
             Statement statement = c.createStatement();
-            ResultSet rs = statement.executeQuery(  "SELECT p320_05.\"User\".\"Username\", " +
-                                                        "p320_05.\"User\".\"Firstname\", " +
-                                                        "p320_05.\"User\".\"Lastname\",  " +
-                                                        "p320_05.\"User\".\"Email\", " +
-                                                        "p320_05.\"User\".\"Password\" " +
-                                                        "FROM p320_05.\"User\" " +
-                                                        "WHERE \"UserID\" = '" + BaseApplication.storage.userID + "'");
+            ResultSet rs = statement.executeQuery(  "SELECT * " +
+                    "FROM p320_05.\"User\"" +
+                    "WHERE \"UserID\" = '" + BaseApplication.storage.userID + "';");
+
             rs.next();
-            userNameInput.setText(rs.getString("UserName"));
+
+            userNameInput.setText(rs.getString("Username"));
             firstNameInput.setText(rs.getString("FirstName"));
             lastNameInput.setText(rs.getString("LastName"));
             emailInput.setText(rs.getString("Email"));
@@ -88,6 +87,21 @@ public class ProfileController {
      */
     @FXML
     public void profileUpdate(ActionEvent actionEvent) throws IOException {
+        try {
+            var c = DataStreamManager.conn;
+            Statement statement = c.createStatement();
+            statement.executeQuery(  "UPDATE p320_05.\"User\" " +
+                    "SET \"Username\" = '" + userNameInput.getText() + "', " +
+                    "\"FirstName\" = '" + firstNameInput.getText() + "', " +
+                    "\"LastName\" = '" + lastNameInput.getText() + "', " +
+                    "\"Email\" = '" + emailInput.getText() + "', " +
+                    "\"Password\" = '" + passwordInput.getText() + "' " +
+                    "WHERE \"UserID\" = '" + BaseApplication.storage.userID + "';");
+        }
+        catch (SQLException e) {
+            System.out.println("Failed to update profile information");
+        }
+
         new DashboardWindow().load();
     }
 
