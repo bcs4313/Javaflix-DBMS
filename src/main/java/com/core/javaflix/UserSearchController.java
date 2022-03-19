@@ -1,5 +1,7 @@
 package com.core.javaflix;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,6 +13,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class UserSearchController {
     @FXML
@@ -25,8 +29,21 @@ public class UserSearchController {
     @FXML //button to update the user's information
     private Button backButton;
 
-    @FXML //column containing emails
+    @FXML
     private TableView searchTable;
+
+    @FXML  //column containing emails
+    private TableColumn<User, String> emailColumn;
+
+    @FXML  //column containing username
+    private TableColumn<User, String> usernameColumn;
+
+    @FXML  //column containing name
+    private TableColumn<User, String> nameColumn;
+
+    @FXML  //column containing name
+    private TableColumn<User, Button> buttonColumn;
+
 
     /**
      * initialize the page with this information.
@@ -34,30 +51,38 @@ public class UserSearchController {
     @FXML
     public void initialize() {
 
-        //create columns
-        searchTable = new TableView();
+        //set search bar
+        searchBar.setText(BaseApplication.storage.search);
 
-        TableColumn<User, String> emailColumn = new TableColumn<>("Email");
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        TableColumn<User, String> usernameColumn = new TableColumn<>("Username");
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
-        TableColumn<User, String> nameColumn = new TableColumn<>("Name");
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        TableColumn<User, Button> buttonColumn = new TableColumn<>("Visit");
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("button"));
+        //set value factories
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("Email"));
+        usernameColumn.setCellValueFactory(new PropertyValueFactory<>("Username"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        buttonColumn.setCellValueFactory(new PropertyValueFactory<>("Button"));
 
-        //add columns
-        searchTable.getColumns().add(emailColumn);
-        searchTable.getColumns().add(usernameColumn);
-        searchTable.getColumns().add(nameColumn);
+        //add values to observable list
+        try {
+            var c = DataStreamManager.conn;
+            Statement statement = c.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * " +
+                    "FROM p320_05.\"User\"" +
+                    "WHERE \"Email\" LIKE '%" + BaseApplication.storage.search + "%';");
 
-        VBox vbox = new VBox(searchTable);
-        //searchTable.getColumns().add(buttonColumn);
+            while (rs.next()) {
+                list.add(new User(rs.getString("Email"),
+                        rs.getString("Username"),
+                        rs.getString("FirstName") +  " " + rs.getString("LastName")));
+            }
+        }
+        catch (Exception e) {
 
-        //get values
-        //searchTable.getItems().add(new User("test@gmail.com", "test", "Test Account"));
+        }
 
+        searchTable.setItems(list);
     }
+
+    ObservableList<User> list = FXCollections.observableArrayList(
+    );
 
 
 
@@ -68,6 +93,7 @@ public class UserSearchController {
      */
     @FXML
     public void searchUser(ActionEvent actionEvent) throws IOException {
+        BaseApplication.storage.search = searchBar.getText();
         new UserSearchWindow().load();
     }
 
@@ -78,6 +104,7 @@ public class UserSearchController {
      */
     @FXML
     public void goBack(ActionEvent actionEvent) throws IOException {
+        BaseApplication.storage.search = "";
         new FriendsWindow().load();
     }
 
@@ -88,6 +115,7 @@ public class UserSearchController {
      */
     @FXML
     public static void visitUser(ActionEvent actionEvent) throws IOException {
+        BaseApplication.storage.search = "";
         new FriendsWindow().load();
     }
 

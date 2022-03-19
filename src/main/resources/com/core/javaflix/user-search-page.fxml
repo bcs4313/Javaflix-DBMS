@@ -77,16 +77,16 @@
             </HBox>
          </top>
          <center>
-            <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-              <columns>
-                <TableColumn prefWidth="75.0" text="Email" />
-                <TableColumn prefWidth="75.0" text="Username" />
-                  <TableColumn prefWidth="75.0" text="Name" />
-                  <TableColumn prefWidth="75.0" text="Column X" />
-              </columns>
+            <TableView fx:id="searchTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
+               <columns>
+                  <TableColumn fx:id="emailColumn" editable="false" prefWidth="75.0" text="Email" />
+                  <TableColumn fx:id="usernameColumn" prefWidth="75.0" text="Username" />
+                  <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />
+                  <TableColumn fx:id="buttonColumn" prefWidth="75.0" />
+               </columns>
             </TableView>
          </center>
         </BorderPane>
