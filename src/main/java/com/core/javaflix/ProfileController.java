@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -57,24 +58,22 @@ public class ProfileController {
      * Builder that assigns the text fields with the correct
      * information of the user.
      */
-    public ProfileController() {
-
+    @FXML
+    public void initialize() {
         try {
             var c = DataStreamManager.conn;
             Statement statement = c.createStatement();
-            ResultSet rs = statement.executeQuery(  "SELECT p320_05.\"User\".\"Username\", " +
-                                                        "p320_05.\"User\".\"Firstname\", " +
-                                                        "p320_05.\"User\".\"Lastname\",  " +
-                                                        "p320_05.\"User\".\"Email\", " +
-                                                        "p320_05.\"User\".\"Password\" " +
-                                                        "FROM p320_05.\"User\" " +
-                                                        "WHERE \"UserID\" = '" + BaseApplication.storage.userID + "'");
+            ResultSet rs = statement.executeQuery(  "SELECT * " +
+                    "FROM p320_05.\"User\"" +
+                    "WHERE \"UserID\" = '" + 1003 + "';");
+
             rs.next();
-            userNameInput.setText(rs.getString("UserName"));
-            firstNameInput.setText(rs.getString("FirstName"));
-            lastNameInput.setText(rs.getString("LastName"));
-            emailInput.setText(rs.getString("Email"));
-            passwordInput.setText(rs.getString("Password"));
+
+            userNameInput.setText(rs.getString(2));
+            firstNameInput.setText(rs.getString(4));
+            lastNameInput.setText(rs.getString(5));
+            emailInput.setText(rs.getString(3));
+            passwordInput.setText(rs.getString(8));
         }
         catch (SQLException e){
             System.out.println("Failed to get profile information");
@@ -88,6 +87,21 @@ public class ProfileController {
      */
     @FXML
     public void profileUpdate(ActionEvent actionEvent) throws IOException {
+        try {
+            var c = DataStreamManager.conn;
+            Statement statement = c.createStatement();
+            ResultSet rs = statement.executeQuery(  "UPDATE p320_05.\"User\" " +
+                    "SET \"Username\" = '" + userNameInput.getText() + "', " +
+                    "\"FirstName\" = '" + firstNameInput.getText() + "', " +
+                    "\"LastName\" = '" + lastNameInput.getText() + "', " +
+                    "\"Email\" = '" + emailInput.getText() + "', " +
+                    "\"Password\" = '" + passwordInput.getText() + "' " +
+                    "WHERE \"UserID\" = '" + 1003 + "';");
+        }
+        catch (SQLException e) {
+            System.out.println("Failed to update profile information");
+        }
+
         new DashboardWindow().load();
     }
 
