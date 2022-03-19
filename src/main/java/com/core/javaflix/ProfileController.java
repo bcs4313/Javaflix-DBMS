@@ -1,5 +1,10 @@
 package com.core.javaflix;
 
+import com.core.javaflix.DashboardWindow;
+import com.core.javaflix.DataStreamManager;
+import com.core.javaflix.DashboardWindow;
+import com.core.javaflix.BaseApplication;
+import com.core.javaflix.DataStreamManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,11 +18,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 // generating values
-import java.util.Random;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
-import java.util.Calendar;
+
 
 public class ProfileController {
     @FXML
