@@ -56,10 +56,17 @@ public class BaseController {
                 rsid.next();
                 BaseApplication.storage.userID = rsid.getInt("UserID");
 
-                //update last log in to today
-                statement.executeQuery(  "UPDATE p320_05.\"User\" " +
-                        "SET \"LastAccess\" = '" + new Date(System.currentTimeMillis()) + "' " +
-                        "WHERE \"Email\" = '" + emailAddressInput.getText() + "';");
+
+                //update last login to today
+                try {
+                    statement.executeQuery("UPDATE p320_05.\"User\" " +
+                            "SET \"LastAccess\" = '" + new Date(System.currentTimeMillis()) + "' " +
+                            "WHERE \"Email\" = '" + emailAddressInput.getText() + "'");
+                }
+                catch (Exception e){
+
+                }
+
 
                 //load dashboard
                 new DashboardWindow().load();
@@ -70,7 +77,6 @@ public class BaseController {
         catch (SQLException | IOException e)
         {
             System.out.println("Login Failed (Invalid Email Entry)");
-            e.printStackTrace();
         }
     }
 

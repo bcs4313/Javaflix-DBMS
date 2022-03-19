@@ -91,7 +91,7 @@ public class ProfileController {
         try {
             var c = DataStreamManager.conn;
             Statement statement = c.createStatement();
-            ResultSet rs = statement.executeQuery(  "UPDATE p320_05.\"User\" " +
+            statement.executeQuery(  "UPDATE p320_05.\"User\" " +
                     "SET \"Username\" = '" + userNameInput.getText() + "', " +
                     "\"FirstName\" = '" + firstNameInput.getText() + "', " +
                     "\"LastName\" = '" + lastNameInput.getText() + "', " +
