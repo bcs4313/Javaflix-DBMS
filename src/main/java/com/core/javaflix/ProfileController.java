@@ -56,8 +56,7 @@ public class ProfileController {
 
 
     /**
-     * Builder that assigns the text fields with the correct
-     * information of the user.
+     * initialize the page with this information.
      */
     @FXML
     public void initialize() {
