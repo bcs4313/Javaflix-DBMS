@@ -70,11 +70,11 @@ public class ProfileController {
 
             rs.next();
 
-            userNameInput.setText(rs.getString(2));
-            firstNameInput.setText(rs.getString(4));
-            lastNameInput.setText(rs.getString(5));
-            emailInput.setText(rs.getString(3));
-            passwordInput.setText(rs.getString(8));
+            userNameInput.setText(rs.getString("Username"));
+            firstNameInput.setText(rs.getString("FirstName"));
+            lastNameInput.setText(rs.getString("LastName"));
+            emailInput.setText(rs.getString("Email"));
+            passwordInput.setText(rs.getString("Password"));
         }
         catch (SQLException e){
             System.out.println("Failed to get profile information");
