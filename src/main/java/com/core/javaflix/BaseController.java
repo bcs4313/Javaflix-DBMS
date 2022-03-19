@@ -54,7 +54,7 @@ public class BaseController {
                 ResultSet rsid = statement.executeQuery("SELECT p320_05.\"User\".\"UserID\" FROM p320_05.\"User\" " +
                         "WHERE \"Email\" = '" + emailAddressInput.getText() + "'");
                 rsid.next();
-                BaseApplication.storage.userID = rsid.getInt("UserID");
+                AppStorage.userID = rsid.getInt("UserID");
                 new DashboardWindow().load();
             } else {
                 System.out.println("Login failed (Invalid Password)");

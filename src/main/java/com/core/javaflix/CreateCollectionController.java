@@ -17,19 +17,21 @@ public class CreateCollectionController {
     private TextField collectionNameInput;
 
     @FXML
-    private void sendToCollections() throws IOException {
+    private void sendToCollections() throws IOException, SQLException {
         new CollectionWindow().load();
     }
 
     @FXML
     private void createCollection() throws IOException, SQLException {
-        int id = AppStorage.userID;
+        int userid = AppStorage.userID;
         String inputText = collectionNameInput.getText();
         var c = DataStreamManager.conn;
         System.out.println(c.getCatalog());
         Statement statement = c.createStatement();
-        ResultSet rs = statement.executeQuery("INSERT INTO p320_05.\"Collection\" (\"CollectionID\", \"UserID\", \"CollectionName\") VALUES (2, " + id + ", \'" + inputText + "\')");
+        ResultSet rs = statement.executeQuery("SELECT p320_05.\"Collection\".\"CollectionID\" FROM p320_05.\"Collection\" ORDER BY p320_05.\"Collection\".\"CollectionID\" DESC");
         rs.next();
+        int collectionID = (rs.getInt(1)) + 1;
+        statement.execute("INSERT INTO p320_05.\"Collection\" (\"CollectionID\", \"UserID\", \"CollectionName\") VALUES (\'" + collectionID + "\', " + userid + ", \'" + inputText + "\')");
         System.out.println(collectionNameInput.getText());
         new CollectionWindow().load();
     }
