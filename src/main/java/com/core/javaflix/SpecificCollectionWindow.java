@@ -1,19 +1,12 @@
 package com.core.javaflix;
 
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
 
 import java.io.IOException;
-import java.sql.Array;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-
-public class CollectionWindow {
+public class SpecificCollectionWindow {
 
     /**
      * load this window into the main stage (manually called)
@@ -21,7 +14,7 @@ public class CollectionWindow {
      */
     public void load() throws IOException, SQLException {
         // load application page
-        FXMLLoader fxmlLoader = new FXMLLoader(BaseApplication.class.getResource("collections.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(BaseApplication.class.getResource("specificCollection.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 852, 480); // standard 480p window size
         BaseApplication.window.setScene(scene);
         BaseApplication.window.show();
