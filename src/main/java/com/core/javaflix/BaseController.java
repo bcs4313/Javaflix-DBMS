@@ -55,6 +55,7 @@ public class BaseController {
                         "WHERE \"Email\" = '" + emailAddressInput.getText() + "'");
                 rsid.next();
                 BaseApplication.storage.userID = rsid.getInt("UserID");
+                BaseApplication.storage.search = "";
 
 
                 //update last login to today
