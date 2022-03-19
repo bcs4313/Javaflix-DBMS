@@ -66,15 +66,15 @@ public class ProfileController {
             Statement statement = c.createStatement();
             ResultSet rs = statement.executeQuery(  "SELECT * " +
                     "FROM p320_05.\"User\"" +
-                    "WHERE \"UserID\" = '" + 1003 + "';");
+                    "WHERE \"UserID\" = '" + BaseApplication.storage.userID + "';");
 
             rs.next();
 
-            userNameInput.setText(rs.getString(2));
-            firstNameInput.setText(rs.getString(4));
-            lastNameInput.setText(rs.getString(5));
-            emailInput.setText(rs.getString(3));
-            passwordInput.setText(rs.getString(8));
+            userNameInput.setText(rs.getString("Username"));
+            firstNameInput.setText(rs.getString("FirstName"));
+            lastNameInput.setText(rs.getString("LastName"));
+            emailInput.setText(rs.getString("Email"));
+            passwordInput.setText(rs.getString("Password"));
         }
         catch (SQLException e){
             System.out.println("Failed to get profile information");
@@ -91,13 +91,13 @@ public class ProfileController {
         try {
             var c = DataStreamManager.conn;
             Statement statement = c.createStatement();
-            ResultSet rs = statement.executeQuery(  "UPDATE p320_05.\"User\" " +
+            statement.executeQuery(  "UPDATE p320_05.\"User\" " +
                     "SET \"Username\" = '" + userNameInput.getText() + "', " +
                     "\"FirstName\" = '" + firstNameInput.getText() + "', " +
                     "\"LastName\" = '" + lastNameInput.getText() + "', " +
                     "\"Email\" = '" + emailInput.getText() + "', " +
                     "\"Password\" = '" + passwordInput.getText() + "' " +
-                    "WHERE \"UserID\" = '" + 1003 + "';");
+                    "WHERE \"UserID\" = '" + BaseApplication.storage.userID + "';");
         }
         catch (SQLException e) {
             System.out.println("Failed to update profile information");
