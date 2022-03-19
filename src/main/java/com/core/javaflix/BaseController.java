@@ -9,9 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class BaseController {
     @FXML
@@ -51,10 +49,26 @@ public class BaseController {
         try {
             if (rs.getString("password").equals(passwordInput.getText())) {
                 System.out.println("Login Successful");
+
+                //get user ids
                 ResultSet rsid = statement.executeQuery("SELECT p320_05.\"User\".\"UserID\" FROM p320_05.\"User\" " +
                         "WHERE \"Email\" = '" + emailAddressInput.getText() + "'");
                 rsid.next();
-                AppStorage.userID = rsid.getInt("UserID");
+                BaseApplication.storage.userID = rsid.getInt("UserID");
+
+
+                //update last login to today
+                try {
+                    statement.executeQuery("UPDATE p320_05.\"User\" " +
+                            "SET \"LastAccess\" = '" + new Date(System.currentTimeMillis()) + "' " +
+                            "WHERE \"Email\" = '" + emailAddressInput.getText() + "'");
+                }
+                catch (Exception e){
+
+                }
+
+
+                //load dashboard
                 new DashboardWindow().load();
             } else {
                 System.out.println("Login failed (Invalid Password)");
@@ -63,7 +77,6 @@ public class BaseController {
         catch (SQLException | IOException e)
         {
             System.out.println("Login Failed (Invalid Email Entry)");
-            e.printStackTrace();
         }
     }
 

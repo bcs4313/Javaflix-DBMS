@@ -63,7 +63,7 @@ public class SignUpController {
         try {
             //@todo auto increment user id instead of generating it here
             // now to generate all user information to insert into the 'User' Table
-            int userID = new Random().nextInt(9999);
+            int userID;
             String userName = userNameInput.getText();
             String email = emailAddressInput.getText();
             String password = passwordInput.getText();
@@ -72,15 +72,25 @@ public class SignUpController {
             String creationDate = formatter.format(obj.getTime());
             System.out.println("Current Date: " + creationDate);
 
-            var c = DataStreamManager.conn;
-            Statement statement = c.createStatement();
-            statement.execute("INSERT INTO p320_05.\"User\" VALUES " +
-                    "(" + userID + ",'" + userName + "', '" + email + "',\n" +
-                    "null, null,\n" +
-                    "CAST('" + creationDate + "' AS DATE),\n" +
-                    "CAST('" + creationDate + "' AS DATE)\n" +
-                    ", '" + password + "')");
-            System.out.println("Account Created");
+            boolean accountMade = false;
+            while (!accountMade) {
+                userID = new Random().nextInt(10000);
+                try {
+                    var c = DataStreamManager.conn;
+                    Statement statement = c.createStatement();
+                    statement.execute("INSERT INTO p320_05.\"User\" VALUES " +
+                            "(" + userID + ",'" + userName + "', '" + email + "',\n" +
+                            "null, null,\n" +
+                            "CAST('" + creationDate + "' AS DATE),\n" +
+                            "CAST('" + creationDate + "' AS DATE)\n" +
+                            ", '" + password + "')");
+                    System.out.println("Account Created");
+                    accountMade = true;
+                }
+                catch (Exception e) {
+                    System.out.println("Failed to create account");
+                }
+            }
             BaseApplication.base.load();
             return true;
         }

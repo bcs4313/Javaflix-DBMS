@@ -2,26 +2,37 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.core.javaflix.FriendsController">
-   <left>
-      <Button mnemonicParsing="false" onAction="#goToFans" prefHeight="80.0" prefWidth="195.0" text="Fans" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets left="40.0" />
-         </BorderPane.margin>
-      </Button>
-   </left>
-   <right>
-      <Button mnemonicParsing="false" onAction="#goToFollowed" prefHeight="80.0" prefWidth="195.0" text="Followed" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets right="40.0" />
-         </BorderPane.margin>
-      </Button>
-   </right>
    <top>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Friends" wrappingWidth="42.16210956573468" BorderPane.alignment="CENTER" />
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#sentToDashboard" text="back" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Friends">
+               <HBox.margin>
+                  <Insets left="220.0" />
+               </HBox.margin>
+            </Text>
+         </children>
+      </HBox>
    </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="searchFriend" prefHeight="30.0" prefWidth="130.0" />
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#goToFollowed" prefHeight="80.0" prefWidth="195.0" text="Following" />
+                  <Button mnemonicParsing="false" onAction="#goToFans" prefHeight="80.0" prefWidth="195.0" text="Fans" />
+                  <Button fx:id="searchButton" mnemonicParsing="false" onAction="#sendToUserSearch" prefHeight="80.0" prefWidth="195.0" text="Search Users" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
 </BorderPane>
