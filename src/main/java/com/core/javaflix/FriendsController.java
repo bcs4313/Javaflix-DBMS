@@ -21,11 +21,18 @@ public class FriendsController {
         new FansWindow().load();
     }
 
+    @FXML
     public void goToFollowed() throws IOException {
         new FollowedWindow().load();
     }
 
+    @FXML
     public void sentToDashboard() throws IOException {
         new DashboardWindow().load();
+    }
+
+    @FXML
+    public void sendToUserSearch() throws IOException {
+        new UserSearchWindow().load();
     }
 }
