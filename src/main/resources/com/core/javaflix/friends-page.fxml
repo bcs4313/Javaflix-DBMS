@@ -29,6 +29,7 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#goToFollowed" prefHeight="80.0" prefWidth="195.0" text="Following" />
                   <Button mnemonicParsing="false" onAction="#goToFans" prefHeight="80.0" prefWidth="195.0" text="Fans" />
+                  <Button fx:id="searchButton" mnemonicParsing="false" onAction="#sendToUserSearch" prefHeight="80.0" prefWidth="195.0" text="Search Users" />
                </children>
             </HBox>
          </children>
