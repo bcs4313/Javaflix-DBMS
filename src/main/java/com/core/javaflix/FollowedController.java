@@ -33,7 +33,7 @@ public class FollowedController {
                     String columnValue = rs.getString(i);
                     String ID = rs.getString(i - 1);
                     Button button = new Button(columnValue);
-                    button.setOnAction(actionEvent -> selectFriend(ID, button));
+                    button.setOnAction(actionEvent -> selectFriend(ID));
                     following.getChildren().add(button);
                 }
             }
@@ -47,7 +47,7 @@ public class FollowedController {
         new FriendsWindow().load();
     }
 
-    public void selectFriend(String ID, Button button) {
+    public void selectFriend(String ID) {
         unFollow.setDisable(false);
         this.selected = ID;
     }
