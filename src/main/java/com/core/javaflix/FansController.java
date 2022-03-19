@@ -24,7 +24,7 @@ public class FansController {
             Statement statement = c.createStatement();
             ResultSet rs = statement.executeQuery("select R.\"UserID\", S.\"Username\"\n" +
                     "from p320_05.\"UserFollow\" R, p320_05.\"User\" S\n" +
-                    "where R.\"FollowID\" = 1009\n" +
+                    "where R.\"FollowID\" = " + BaseApplication.storage.userID + "\n" +
                     "and S.\"UserID\" = R.\"UserID\"");
             ResultSetMetaData rsmd = rs.getMetaData();
             int size = rsmd.getColumnCount();

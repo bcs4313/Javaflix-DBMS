@@ -27,7 +27,7 @@
             <TextField fx:id="searchFriend" prefHeight="30.0" prefWidth="130.0" />
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#goToFollowed" prefHeight="80.0" prefWidth="195.0" text="Followed" />
+                  <Button mnemonicParsing="false" onAction="#goToFollowed" prefHeight="80.0" prefWidth="195.0" text="Following" />
                   <Button mnemonicParsing="false" onAction="#goToFans" prefHeight="80.0" prefWidth="195.0" text="Fans" />
                </children>
             </HBox>
