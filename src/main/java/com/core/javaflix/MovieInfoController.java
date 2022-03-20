@@ -34,8 +34,8 @@ public class MovieInfoController {
     }
 
     @FXML
-    public void collectionSelection() {
-        System.out.println("I have no permission");
+    public void collectionSelection() throws IOException {
+        new SelectCollectionWindow().load();
     }
 
     @FXML

@@ -71,9 +71,8 @@ public class SpecificCollectionController {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    new SpecificCollectionWindow().load();
-                } catch (IOException | SQLException e) {
-                    e.printStackTrace();
+                    new MovieInfoWindow().load();
+                } catch (IOException e) {
                 }
             }
         };
