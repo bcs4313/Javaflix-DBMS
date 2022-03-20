@@ -32,7 +32,7 @@ public class SpecificCollectionController {
     @FXML
     private Label totalTime;
 
-
+    public int movieID;
     @FXML
     public void sendToCollections() throws IOException, SQLException {
         new CollectionWindow().load();
@@ -58,25 +58,17 @@ public class SpecificCollectionController {
 
     }
 
+    public void select(String movieID) throws IOException {
+        AppStorage.inCollection = true;
+        AppStorage.search = movieID;
+        new MovieInfoWindow().load();
+    }
+
 
     @FXML
     public void initialize() throws SQLException {
         ArrayList<Button> buttonList = new ArrayList<Button>();
         ArrayList<Integer> buttonID = new ArrayList<Integer>();
-
-        /**
-         * Eventhandler handles when a user clicks on a collection button in the Vbox
-         */
-        EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                try {
-                    new SpecificCollectionWindow().load();
-                } catch (IOException | SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
         /**
          * Creates a SQL query to retrieve the users list of collection
          */
@@ -92,7 +84,13 @@ public class SpecificCollectionController {
             ResultSet ms = statement2.executeQuery("SELECT p320_05.\"Movie\".\"Title\" FROM p320_05.\"Movie\" WHERE \"MovieID\" = " + movieid + "");
             ms.next();
             Button button = new Button(ms.getString("Title"));
-            button.setOnAction(buttonHandler);
+            button.setOnAction(EventHandler -> {
+                try {
+                    select(String.valueOf(movieid));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
             buttonList.add(button);
             buttonID.add(movieid);
             movieList.getChildren().add(button);

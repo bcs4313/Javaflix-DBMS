@@ -21,8 +21,8 @@
          <content>
             <HBox prefHeight="158.0" prefWidth="600.0">
                <children>
-                  <VBox fx:id="resultBox" prefHeight="100.0" prefWidth="187.0" />
-                  <VBox fx:id="movieMember" prefHeight="100.0" prefWidth="200.0" />
+                  <VBox fx:id="resultBox" prefHeight="158.0" prefWidth="293.0" />
+                  <VBox fx:id="movieMember" prefHeight="158.0" prefWidth="155.0" />
                   <VBox fx:id="commandBox" prefHeight="86.0" prefWidth="206.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#watchMovie" prefHeight="26.0" prefWidth="204.0" text="Watch" />
@@ -35,6 +35,7 @@
                         </HBox>
                         <Label fx:id="rateLabel" prefHeight="18.0" prefWidth="205.0" />
                         <Button mnemonicParsing="false" onAction="#collectionSelection" prefHeight="26.0" prefWidth="211.0" text="Add to Collection" />
+                        <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteFromCollection" prefHeight="26.0" prefWidth="196.0" text="Delete from Collection" />
                      </children>
                   </VBox>
                </children>
