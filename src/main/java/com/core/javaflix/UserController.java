@@ -116,16 +116,11 @@ public class UserController {
                 else {
                     friend = false;
                 }
-
-
             }
             catch (Exception e) {
-
             }
-
         }
         catch (Exception e) {
-
         }
     }
 
