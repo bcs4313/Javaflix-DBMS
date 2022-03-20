@@ -47,6 +47,11 @@
          <children>
             <TextField fx:id="newName" promptText="Enter New Name Here" />
             <Button mnemonicParsing="false" onAction="#changeCollectionName" text="Click to Change" />
+            <Button mnemonicParsing="false" onAction="#markAsWatched" prefHeight="26.0" prefWidth="86.0" text="Play All">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Button>
             <Label fx:id="numberOfMovies" prefHeight="31.0" prefWidth="138.0" text="Number of Movies: 0">
                <HBox.margin>
                   <Insets left="80.0" />

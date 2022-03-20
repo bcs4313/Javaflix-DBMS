@@ -50,7 +50,7 @@ public class BaseApplication extends Application {
     /**
      * load this window into the main stage (manually called)
      */
-    public void load() {
+    public static void load() {
         try {
             // load application page
             FXMLLoader fxmlLoader = new FXMLLoader(BaseApplication.class.getResource("login-page.fxml"));
