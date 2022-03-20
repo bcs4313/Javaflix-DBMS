@@ -15,6 +15,11 @@ import java.util.List;
 
 public class DashboardController {
 
+    private boolean descending = true;
+
+    private String ascensionStatement = " ORDER BY p320_05.\"Movie\".\"Title\" DESC";
+    private String ascensionStatement2 = " ORDER BY M.\"Title\" DESC";
+
     @FXML
     private Button friendsButton;
 
@@ -23,6 +28,9 @@ public class DashboardController {
 
     @FXML
     private Button profileButton;
+
+    @FXML
+    private Button ascensionButton;
 
     @FXML
     private TextField searchInput;
@@ -45,6 +53,11 @@ public class DashboardController {
     private void updateMovieList() throws SQLException {
         String movieSearch = searchInput.getText();
 
+        Button temp = ascensionButton;
+        ascensionButton = new Button();
+        ascensionButton.setText(temp.getText());
+        ascensionButton.setOnAction(temp.getOnAction());
+
         // de-populate buttons
         List<Node> c = MovieBox.getChildren();
         int size = c.size();
@@ -52,6 +65,8 @@ public class DashboardController {
         {
             c.remove(0);
         }
+
+        MovieBox.getChildren().add(ascensionButton);
 
         if(nameCheck.isSelected())
         {
@@ -64,6 +79,14 @@ public class DashboardController {
         else if(castCheck.isSelected())
         {
             loadButtons(populateByCast(movieSearch));
+        }
+        else if(studioCheck.isSelected())
+        {
+            loadButtons(populateByStudio(movieSearch));
+        }
+        else if(genreCheck.isSelected())
+        {
+            loadButtons(populateByGenre(movieSearch));
         }
     }
     // generate buttons according to a query resultset in VBox
@@ -101,7 +124,8 @@ public class DashboardController {
        var c = DataStreamManager.conn;
        Statement statement = c.createStatement();
        ResultSet rs = statement.executeQuery(  "SELECT DISTINCT p320_05.\"Movie\".\"Title\", p320_05.\"Movie\".\"MovieID\"" +
-               " FROM p320_05.\"Movie\" WHERE lower(\"Title\") LIKE \'%" + search.toLowerCase() + "%\'");
+               " FROM p320_05.\"Movie\" WHERE lower(\"Title\") LIKE \'%" +
+               search.toLowerCase() + "%\'" + ascensionStatement);
        return rs;
    }
 
@@ -109,7 +133,7 @@ public class DashboardController {
         var c = DataStreamManager.conn;
         Statement statement = c.createStatement();
         ResultSet rs = statement.executeQuery(  "SELECT DISTINCT p320_05.\"Movie\".\"Title\", p320_05.\"Movie\".\"MovieID\"" +
-                " FROM p320_05.\"Movie\" WHERE \"ReleaseDate\" LIKE \'%" + search + "%\'");
+                " FROM p320_05.\"Movie\" WHERE \"ReleaseDate\" LIKE \'%" + search + "%\'" + ascensionStatement);
         return rs;
     }
 
@@ -118,22 +142,18 @@ public class DashboardController {
         String start = members[0];
         String builder = "";
         for(int i = 1; i < members.length; i++) {
-            builder += " OR (P.\"FirstName\" LIKE %" +  members[i] + "% OR " + "P.\"LastName\" LIKE %" + members[i] + "%";
+            builder += " AND lower(P.\"FirstName\") LIKE %" +  members[i].toLowerCase() + "% OR " + "lower(P.\"LastName\") " +
+                    "LIKE %" + members[i].toLowerCase() + "%" + ascensionStatement;
         }
         var c = DataStreamManager.conn;
         Statement statement = c.createStatement();
-        /*
-        ResultSet rs = statement.executeQuery("SELECT M.\"Title\", M.\"MovieID\", FROM\n" +
-                "p320_05.\"Movie\" M, p320_05.\"CastMovie\" CM, p320_05.\"Person\" P WHERE\n" +
-                "M.\"MovieID\" = CM.\"MovieID\" AND P.\"PersonID\"= CM.\"PersonID\" " +
-                "AND (P.\"FirstName\" = '" + start +  "' OR P.\"LastName\" = '" + start + "'" + builder + ")");
 
-         */
         try {
             ResultSet rs = statement.executeQuery("SELECT M.\"Title\", M.\"MovieID\" FROM\n" +
                     " p320_05.\"Movie\" M, p320_05.\"CastMovie\" CM, p320_05.\"Person\" P WHERE\n" +
                     "M.\"MovieID\" = CM.\"MovieID\" AND P.\"PersonID\"= CM.\"PersonID\" " +
-                    "AND (P.\"FirstName\" LIKE '%" + start + "%' OR P.\"LastName\" LIKE '%" + start + "%')");
+                    "AND (lower(P.\"FirstName\") LIKE '%" + start.toLowerCase() + "%' OR lower(P.\"LastName\") LIKE '%" + start.toLowerCase() + "%'" +
+                    builder + ")" + " GROUP BY M.\"MovieID\" "  + ascensionStatement2);
             return rs;
         }
         catch (Exception e)
@@ -143,12 +163,53 @@ public class DashboardController {
         return null;
     }
 
+    public ResultSet populateByStudio(String search) throws SQLException {
+        var c = DataStreamManager.conn;
+        Statement statement = c.createStatement();
+        ResultSet rs = statement.executeQuery(  "SELECT M.\"Title\", M.\"MovieID\" FROM\n" +
+                " p320_05.\"Movie\" M, p320_05.\"StudioMovie\" SM, p320_05.\"Studio\" S WHERE\n" +
+                " M.\"MovieID\" = SM.\"MovieID\" AND S.\"StudioID\" = SM.\"StudioID\" " +
+                "AND (lower(S.\"Name\") LIKE '%" + search.toLowerCase() + "%')" + ascensionStatement2);
+        return rs;
+    }
+
+    public ResultSet populateByGenre(String search) throws SQLException
+    {
+        var c = DataStreamManager.conn;
+        Statement statement = c.createStatement();
+        ResultSet rs = statement.executeQuery(  "SELECT M.\"Title\", M.\"MovieID\" FROM\n" +
+                " p320_05.\"Movie\" M, p320_05.\"GenreMovie\" GM, p320_05.\"Genre\" G WHERE\n" +
+                "M.\"MovieID\" = GM.\"MovieID\" AND G.\"Name\" = GM.\"GenreName\" " +
+                "AND (lower(G.\"Name\") LIKE '%" + search.toLowerCase() + "%')" +
+                " GROUP BY M.\"MovieID\" " + ascensionStatement2);
+        return rs;
+    }
+
     /*
     "select R.\"FollowID\", S.\"Username\"\n" +
                     "from p320_05.\"UserFollow\" R, p320_05.\"User\" S\n" +
                     "where R.\"UserID\" = "  + BaseApplication.storage.userID + "\n" +
                     "and R.\"FollowID\" = S.\"UserID\""
      */
+
+    @FXML
+    private void flipOrder() throws SQLException {
+        if(descending)
+        {
+            ascensionButton.setText("Ascending ^");
+            ascensionStatement = " ORDER BY p320_05.\"Movie\".\"Title\" ASC";
+            ascensionStatement2 = " ORDER BY M.\"Title\" ASC";
+        }
+        else
+        {
+            ascensionButton.setText("Descending v");
+            ascensionStatement = " ORDER BY p320_05.\"Movie\".\"Title\" DESC";
+            ascensionStatement2 = " ORDER BY M.\"Title\" DESC";
+        }
+        descending = !descending;
+        updateMovieList();
+    }
+
     @FXML
     private void sendToCollections() throws IOException, SQLException {
         new CollectionWindow().load();
