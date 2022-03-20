@@ -14,6 +14,11 @@ public class DatasetLoader {
     public static ArrayList<String> nameList = new ArrayList<>();
     public static ArrayList<Integer> personIdList = new ArrayList<>();
     public static ArrayList<String> genreList = new ArrayList<>();
+
+    // these lists handle duplicates in the original dataset
+    public static ArrayList<String> movieDescList = new ArrayList<>();
+    public static ArrayList<String> movieTitleList = new ArrayList<>();
+
     public static ArrayList<Integer> studioIdList = new ArrayList<>();
     public static ArrayList<String> studioStringList = new ArrayList<>();
 
@@ -59,69 +64,76 @@ public class DatasetLoader {
                     System.out.println("Movie [Movie MovieID=" + MovieID + ", Title=" + row[1] + "," +
                             " Release Date=" + row[2] + ", Duration=" + row[19] + ", MPAA=" + row[10] + "]");
 
-                    statement10.execute("INSERT INTO p320_05.\"Movie\" VALUES " +
-                            "(" + MovieID + ", '" + row[1] + "', '" + row[2] + "',\n'" +
-                            row[19] + "', '" + row[10] + "')");
-
-                    // genre adding section
-                    addGenre(row[11], MovieID);
-
-                    // studio adding section
-                    addStudio(row[20], MovieID);
-
-                    // person adding section (director)
-                    Statement statement = c.createStatement();
-                    if(!nameList.contains(row[14])) // if director is in list already
+                    if(!movieTitleList.contains(row[1]) || !movieDescList.contains(row[6]))
                     {
-                        if( row[14].split(" ").length != 2)
+                        movieTitleList.add(row[1]);
+                        movieDescList.add(row[6]);
+                        statement10.execute("INSERT INTO p320_05.\"Movie\" VALUES " +
+                                "(" + MovieID + ", '" + row[1] + "', '" + row[2] + "',\n'" +
+                                row[19] + "', '" + row[10] + "')");
+
+                        // genre adding section
+                        addGenre(row[11], MovieID);
+
+                        // studio adding section
+                        addStudio(row[20], MovieID);
+
+                        // person adding section (director)
+                        Statement statement = c.createStatement();
+                        if(!nameList.contains(row[14])) // if director is in list already
                         {
-                            System.out.println("skip");
-                        }
-                        else {
-                            // insert into person
-                            String firstName = row[14].split(" ")[0];
-                            String lastName = row[14].split(" ")[1];
-                            int randomID = new Random().nextInt(9999999);
-                            while (personIdList.contains(randomID)) {
-                                randomID = new Random().nextInt(9999999);
-                            }
-                            statement.execute("INSERT INTO p320_05.\"Person\" VALUES " +
-                                    "(" + randomID + ", '" + firstName + "', '" + lastName + "')");
-                            nameList.add(row[14]);
-                            personIdList.add(randomID);
-
-                            // link to movie
-                            linkDirectorToMovie(MovieID, randomID);
-
-                        }
-                    }
-
-                    // person adding section (cast)
-                    Statement statement1 = c.createStatement();
-                    if(!nameList.contains(row[24])) // if director is in list already
-                    {
-                        String[] members = row[24].split("-");
-                        for(int i = 0; i < members.length; i++) {
-                            System.out.println(members[i]);
-                            if (members[i].split(" ").length < 2) {
+                            if( row[14].split(" ").length != 2)
+                            {
                                 System.out.println("skip");
-                            } else {
-                                System.out.println("noskip");
-                                String firstName = members[i].split(" ")[0];
-                                String lastName = members[i].split(" ")[1];
+                            }
+                            else {
+                                // insert into person
+                                String firstName = row[14].split(" ")[0];
+                                String lastName = row[14].split(" ")[1];
                                 int randomID = new Random().nextInt(9999999);
                                 while (personIdList.contains(randomID)) {
                                     randomID = new Random().nextInt(9999999);
                                 }
-
-                                System.out.println("Inserting " + firstName + ", " + lastName + " " + randomID);
-                                statement1.execute("INSERT INTO p320_05.\"Person\" VALUES " +
+                                statement.execute("INSERT INTO p320_05.\"Person\" VALUES " +
                                         "(" + randomID + ", '" + firstName + "', '" + lastName + "')");
-                                nameList.add(members[i]);
+                                nameList.add(row[14]);
                                 personIdList.add(randomID);
 
                                 // link to movie
-                                linkCastToMovie(MovieID, randomID);
+                                linkDirectorToMovie(MovieID, randomID);
+
+                            }
+                        }
+
+                        // person adding section (cast)
+                        Statement statement1 = c.createStatement();
+                        if(!nameList.contains(row[24])) // if director is in list already
+                        {
+                            String[] members = row[24].split("-");
+                            for(int i = 0; i < members.length; i++) {
+                                System.out.println(members[i]);
+                                String splitter = members[i];
+                                members[i] = splitter.trim();
+                                if (members[i].split(" ").length < 2) {
+                                    System.out.println("skip");
+                                } else {
+                                    System.out.println("noskip");
+                                    String firstName = members[i].split(" ")[0];
+                                    String lastName = members[i].split(" ")[1];
+                                    int randomID = new Random().nextInt(9999999);
+                                    while (personIdList.contains(randomID)) {
+                                        randomID = new Random().nextInt(9999999);
+                                    }
+
+                                    System.out.println("Inserting " + firstName + ", " + lastName + " " + randomID);
+                                    statement1.execute("INSERT INTO p320_05.\"Person\" VALUES " +
+                                            "(" + randomID + ", '" + firstName + "', '" + lastName + "')");
+                                    nameList.add(members[i]);
+                                    personIdList.add(randomID);
+
+                                    // link to movie
+                                    linkCastToMovie(MovieID, randomID);
+                                }
                             }
                         }
                     }
