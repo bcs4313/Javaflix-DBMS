@@ -35,6 +35,7 @@
                         </HBox>
                         <Label fx:id="rateLabel" prefHeight="18.0" prefWidth="205.0" />
                         <Button mnemonicParsing="false" onAction="#collectionSelection" prefHeight="26.0" prefWidth="211.0" text="Add to Collection" />
+                        <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteFromCollection" prefHeight="26.0" prefWidth="196.0" text="Delete from Collection" />
                      </children>
                   </VBox>
                </children>

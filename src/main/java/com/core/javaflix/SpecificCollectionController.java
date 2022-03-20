@@ -59,6 +59,7 @@ public class SpecificCollectionController {
     }
 
     public void select(String movieID) throws IOException {
+        AppStorage.inCollection = true;
         AppStorage.search = movieID;
         new MovieInfoWindow().load();
     }

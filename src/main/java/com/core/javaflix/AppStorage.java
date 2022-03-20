@@ -9,5 +9,6 @@ public class AppStorage {
     public static String search;
     public static int collectionID;
     public static String collectionName;
+    public static boolean inCollection = false;
     public AppStorage() {}
 }

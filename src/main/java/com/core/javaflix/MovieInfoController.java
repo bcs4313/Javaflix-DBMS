@@ -1,6 +1,7 @@
 package com.core.javaflix;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -28,7 +29,11 @@ public class MovieInfoController {
     public Label rateLabel;
 
     @FXML
+    public Button deleteButton;
+
+    @FXML
     public void sentToDashboard() throws IOException {
+        AppStorage.inCollection = false;
         AppStorage.search = null;
         new DashboardWindow().load();
     }
@@ -64,7 +69,7 @@ public class MovieInfoController {
     }
 
     @FXML
-    public void rateMovie() {
+    public void rateMovie() throws IOException {
         try {
             if (rateField.getText().trim().isEmpty()) {
                 rateLabel.setText("Enter value");
@@ -93,11 +98,32 @@ public class MovieInfoController {
             }
         } catch (SQLException e){
         }
+        new MovieInfoWindow().load();
+    }
+
+    @FXML
+    public void deleteFromCollection() {
+        try {
+
+            var c = DataStreamManager.conn;
+            Statement statement = c.createStatement();
+            statement.executeQuery("delete\n" +
+                    "from p320_05.\"CollectionMovie\"\n" +
+                    "where \"MovieID\" = " + AppStorage.search + "\n" +
+                    "and \"CollectionID\" = " + AppStorage.collectionID);
+        } catch (SQLException e) {
+
+        }
     }
 
     @FXML
     public void initialize() {
         try {
+            if (AppStorage.inCollection == false) {
+                deleteButton.setDisable(true);
+            } else {
+                deleteButton.setDisable(false);
+            }
             var c = DataStreamManager.conn;
             Statement statement = c.createStatement();
             ResultSet rs = statement.executeQuery("select \"Title\", \"ReleaseDate\", \"Duration\", \"mpaa\"\n" +
@@ -130,8 +156,8 @@ public class MovieInfoController {
                 String name = rs.getString(1) + " " + rs.getString(2);
                 movieMember.getChildren().add(new Label(name));
             }
-
-            movieMember.getChildren().add(new Label("\nCast Members:"));
+            movieMember.getChildren().add(new Label(""));
+            movieMember.getChildren().add(new Label("Cast Members:"));
             rs = statement.executeQuery("select L.\"FirstName\", L.\"LastName\"\n" +
                     "from p320_05.\"Person\" L, p320_05.\"CastMovie\" R\n" +
                     "where R.\"MovieID\" = +" + AppStorage.search + "\n" +
