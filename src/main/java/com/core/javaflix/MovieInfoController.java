@@ -29,8 +29,13 @@ public class MovieInfoController {
 
     @FXML
     public void sentToDashboard() throws IOException {
-        AppStorage.movieID = null;
+        AppStorage.search = null;
         new DashboardWindow().load();
+    }
+
+    @FXML
+    public void collectionSelection() {
+        System.out.println("I have no permission");
     }
 
     @FXML
@@ -43,16 +48,16 @@ public class MovieInfoController {
             ResultSet rs = statement.executeQuery("select count(*)\n" +
                     "from p320_05.\"UserMovie\"\n" +
                     "where \"UserID\" =" + AppStorage.userID + "\n" +
-                    "and \"MovieID\" = " + AppStorage.movieID);
+                    "and \"MovieID\" = " + AppStorage.search);
             rs.next();
             int result = rs.getInt(1);
             if (result == 0) {
                 statement.executeQuery("INSERT INTO p320_05.\"UserMovie\"(\"UserID\", \"MovieID\", \"watchDate\")" +
-                        " VALUES (1002, 484, '" + new Date(System.currentTimeMillis()) + "')");
+                        " VALUES (" + AppStorage.userID + ", " + AppStorage.search + ", '" + new Date(System.currentTimeMillis()) + "')");
             } else {
                 statement.executeQuery("UPDATE p320_05.\"UserMovie\" " +
                         "SET \"watchDate\" = '" + current  + "', \"watchedTime\" = 1 + \"watchedTime\"" +
-                        " where \"UserID\" = " + AppStorage.userID + " and \"MovieID\" = " + AppStorage.movieID);
+                        " where \"UserID\" = " + AppStorage.userID + " and \"MovieID\" = " + AppStorage.search);
             }
         } catch (SQLException e) {
         }
@@ -73,15 +78,16 @@ public class MovieInfoController {
                     ResultSet rs = statement.executeQuery("select count(*)\n" +
                             "from p320_05.\"UserMovie\"\n" +
                             "where \"UserID\" = " + AppStorage.userID + "\n" +
-                            "and \"MovieID\" = " + AppStorage.movieID);
+                            "and \"MovieID\" = " + AppStorage.search);
                     rs.next();
                     int count = rs.getInt(1);
                     if (count == 0) {
                         rateLabel.setText("You Never Watch");
                     } else {
+                        rateLabel.setText("rated");
                         statement.executeQuery("UPDATE p320_05.\"UserMovie\" " +
                                 "SET \"rate\" = " + result +
-                                "where \"UserID\" = " + AppStorage.userID +" and \"MovieID\" = " + AppStorage.movieID);
+                                "where \"UserID\" = " + AppStorage.userID +" and \"MovieID\" = " + AppStorage.search);
                     }
                 }
             }
@@ -96,7 +102,7 @@ public class MovieInfoController {
             Statement statement = c.createStatement();
             ResultSet rs = statement.executeQuery("select \"Title\", \"ReleaseDate\", \"Duration\", \"mpaa\"\n" +
                     "from p320_05.\"Movie\"\n" +
-                    "where \"MovieID\" = " + AppStorage.movieID);
+                    "where \"MovieID\" = " + AppStorage.search);
             ResultSetMetaData resultSetMetaData = rs.getMetaData();
             int size = resultSetMetaData.getColumnCount();
             rs.next();
@@ -108,7 +114,7 @@ public class MovieInfoController {
 
             rs = statement.executeQuery("select avg(rate)\n" +
                     "from p320_05.\"UserMovie\"\n" +
-                    "where \"MovieID\" = " + AppStorage.movieID);
+                    "where \"MovieID\" = " + AppStorage.search);
             rs.next();
             resultBox.getChildren().add(new Label("Rate: " + rs.getString(1)));
             movieMember.getChildren().add(new Label("Member"));

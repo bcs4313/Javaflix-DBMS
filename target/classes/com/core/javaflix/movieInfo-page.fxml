@@ -19,11 +19,11 @@
    <center>
       <ScrollPane prefHeight="8.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <content>
-            <HBox prefHeight="100.0" prefWidth="600.0">
+            <HBox prefHeight="158.0" prefWidth="600.0">
                <children>
                   <VBox fx:id="resultBox" prefHeight="100.0" prefWidth="187.0" />
                   <VBox fx:id="movieMember" prefHeight="100.0" prefWidth="200.0" />
-                  <VBox fx:id="commandBox" prefHeight="100.0" prefWidth="206.0">
+                  <VBox fx:id="commandBox" prefHeight="86.0" prefWidth="206.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#watchMovie" prefHeight="26.0" prefWidth="204.0" text="Watch" />
                         <Label fx:id="watchLabel" prefHeight="18.0" prefWidth="205.0" />
@@ -34,6 +34,7 @@
                            </children>
                         </HBox>
                         <Label fx:id="rateLabel" prefHeight="18.0" prefWidth="205.0" />
+                        <Button mnemonicParsing="false" onAction="#collectionSelection" prefHeight="26.0" prefWidth="211.0" text="Add to Collection" />
                      </children>
                   </VBox>
                </children>

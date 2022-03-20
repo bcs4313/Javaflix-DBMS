@@ -84,7 +84,12 @@ public class DashboardController {
            EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>() {
                @Override
                public void handle(ActionEvent event) {
-
+                   try {
+                       AppStorage.search = String.valueOf(id);
+                       search();
+                   } catch (IOException e) {
+                       e.printStackTrace();
+                   }
                }
            };
 
@@ -157,6 +162,11 @@ public class DashboardController {
     @FXML
     private void sendToProfile() throws IOException {
         new ProfileWindow().load();
+    }
+
+    @FXML
+    private void search() throws IOException {
+        new MovieInfoWindow().load();
     }
 
 }
