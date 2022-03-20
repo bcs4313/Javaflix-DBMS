@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -16,6 +17,10 @@
       </HBox>
    </top>
    <center>
-      <VBox fx:id="followed" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <content>
+            <VBox fx:id="followed" prefHeight="363.0" prefWidth="593.0" />
+         </content>
+      </ScrollPane>
    </center>
 </BorderPane>

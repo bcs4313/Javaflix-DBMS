@@ -1,6 +1,7 @@
 package com.core.javaflix;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -28,14 +29,18 @@ public class MovieInfoController {
     public Label rateLabel;
 
     @FXML
+    public Button deleteButton;
+
+    @FXML
     public void sentToDashboard() throws IOException {
+        AppStorage.inCollection = false;
         AppStorage.search = null;
         new DashboardWindow().load();
     }
 
     @FXML
-    public void collectionSelection() {
-        System.out.println("I have no permission");
+    public void collectionSelection() throws IOException {
+        new SelectCollectionWindow().load();
     }
 
     @FXML
@@ -64,7 +69,7 @@ public class MovieInfoController {
     }
 
     @FXML
-    public void rateMovie() {
+    public void rateMovie() throws IOException {
         try {
             if (rateField.getText().trim().isEmpty()) {
                 rateLabel.setText("Enter value");
@@ -93,18 +98,37 @@ public class MovieInfoController {
             }
         } catch (SQLException e){
         }
+        new MovieInfoWindow().load();
+    }
+
+    @FXML
+    public void deleteFromCollection() {
+        try {
+
+            var c = DataStreamManager.conn;
+            Statement statement = c.createStatement();
+            statement.executeQuery("delete\n" +
+                    "from p320_05.\"CollectionMovie\"\n" +
+                    "where \"MovieID\" = " + AppStorage.search + "\n" +
+                    "and \"CollectionID\" = " + AppStorage.collectionID);
+        } catch (SQLException e) {
+
+        }
     }
 
     @FXML
     public void initialize() {
         try {
+            if (AppStorage.inCollection == false) {
+                deleteButton.setDisable(true);
+            } else {
+                deleteButton.setDisable(false);
+            }
             var c = DataStreamManager.conn;
             Statement statement = c.createStatement();
             ResultSet rs = statement.executeQuery("select \"Title\", \"ReleaseDate\", \"Duration\", \"mpaa\"\n" +
                     "from p320_05.\"Movie\"\n" +
                     "where \"MovieID\" = " + AppStorage.search);
-            ResultSetMetaData resultSetMetaData = rs.getMetaData();
-            int size = resultSetMetaData.getColumnCount();
             rs.next();
             resultBox.getChildren().add(new Label("MOVIE INFORMATION"));
             resultBox.getChildren().add(new Label("Title: " + rs.getString(1)));
@@ -116,8 +140,32 @@ public class MovieInfoController {
                     "from p320_05.\"UserMovie\"\n" +
                     "where \"MovieID\" = " + AppStorage.search);
             rs.next();
-            resultBox.getChildren().add(new Label("Rate: " + rs.getString(1)));
-            movieMember.getChildren().add(new Label("Member"));
+            String rate = rs.getString(1);
+            if (rate == null) {
+                resultBox.getChildren().add(new Label("Rate: Nobody rated"));
+            } else {
+                resultBox.getChildren().add(new Label("Rate: " + rate));
+            }
+            rs = statement.executeQuery("select L.\"FirstName\", L.\"LastName\"\n" +
+                    "from p320_05.\"Person\" L, p320_05.\"DirectMovie\" R\n" +
+                    "where R.\"MovieID\" = +" + AppStorage.search + "\n" +
+                    "and R.\"PersonID\" = L.\"PersonID\"");
+            ResultSetMetaData resultSetMetaData = rs.getMetaData();
+            movieMember.getChildren().add(new Label("Director:"));
+            while (rs.next()) {
+                String name = rs.getString(1) + " " + rs.getString(2);
+                movieMember.getChildren().add(new Label(name));
+            }
+            movieMember.getChildren().add(new Label(""));
+            movieMember.getChildren().add(new Label("Cast Members:"));
+            rs = statement.executeQuery("select L.\"FirstName\", L.\"LastName\"\n" +
+                    "from p320_05.\"Person\" L, p320_05.\"CastMovie\" R\n" +
+                    "where R.\"MovieID\" = +" + AppStorage.search + "\n" +
+                    "and R.\"PersonID\" = L.\"PersonID\"");
+            while (rs.next()) {
+                String name = rs.getString(1) + " " + rs.getString(2);
+                movieMember.getChildren().add(new Label(name));
+            }
         } catch (SQLException e) {
         }
     }

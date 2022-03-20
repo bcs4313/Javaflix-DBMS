@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.core.javaflix.SelectCollectionController">
+   <center>
+      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <content>
+            <HBox prefHeight="370.0" prefWidth="597.0">
+               <children>
+                  <VBox fx:id="resultBox" prefHeight="97.0" prefWidth="201.0" />
+                  <Button fx:id="selectButton" mnemonicParsing="false" onAction="#selectOne" prefHeight="26.0" prefWidth="139.0" text="Add" />
+               </children>
+            </HBox>
+         </content>
+      </ScrollPane>
+   </center>
+   <top>
+      <HBox prefHeight="28.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#backToMovie" text="Back" />
+            <Label fx:id="titleLabel" prefHeight="36.0" prefWidth="542.0" />
+         </children>
+      </HBox>
+   </top>
+</BorderPane>
