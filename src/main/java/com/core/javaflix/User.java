@@ -79,7 +79,6 @@ public class User {
     @FXML
     public static void visitUser(int userID) throws IOException {
         try {
-            BaseApplication.storage.search = "";
             BaseApplication.storage.otherID = userID;
             new UserWindow().load();
         }

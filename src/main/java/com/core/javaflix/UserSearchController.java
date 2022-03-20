@@ -105,7 +105,6 @@ public class UserSearchController {
      */
     @FXML
     public void goBack(ActionEvent actionEvent) throws IOException {
-        BaseApplication.storage.search = "";
         new FriendsWindow().load();
     }
 

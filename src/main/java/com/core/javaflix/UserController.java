@@ -53,6 +53,9 @@ public class UserController {
     @FXML  //column containing times a movie has been played
     private TableColumn<Movie, String> playedColumn;
 
+    @FXML  //column containing name
+    private TableColumn<User, Button> buttonColumn;
+
 
     /**
      * initialize the page with this information.
@@ -64,15 +67,31 @@ public class UserController {
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("Title"));
         ratingColumn.setCellValueFactory(new PropertyValueFactory<>("Rating"));
         playedColumn.setCellValueFactory(new PropertyValueFactory<>("Played"));
+        buttonColumn.setCellValueFactory(new PropertyValueFactory<>("Button"));
 
         //add values to observable list
         try {
             var c = DataStreamManager.conn;
             Statement statement = c.createStatement();
-            //TODO
-        }
-        catch (Exception e) {
+            ResultSet rs = statement.executeQuery(  "SELECT M.\"MovieID\", M.\"Title\", R.\"rate\", R.\"watchedTime\"\n" +
+                    "FROM p320_05.\"UserMovie\" R, p320_05.\"Movie\" M\n" +
+                    "WHERE \"UserID\" = " + BaseApplication.storage.otherID + "\n" +
+                    "AND R.\"MovieID\" = M.\"MovieID\"\n" +
+                    "AND R.\"rate\" is not null\n" +
+                    "ORDER BY R.\"rate\" DESC");
 
+            int count = 0;
+            while (rs.next() && count < 10) {
+                list.add(new Movie(rs.getInt("MovieID"),
+                        rs.getString("Title"),
+                        rs.getDouble("rate"),
+                        rs.getInt("watchedTime")));
+                count++;
+            }
+        }
+
+        catch (Exception e) {
+            System.out.println(e);
         }
 
         movieTable.setItems(list);
@@ -124,7 +143,7 @@ public class UserController {
         }
     }
 
-    ObservableList<User> list = FXCollections.observableArrayList(
+    ObservableList<Movie> list = FXCollections.observableArrayList(
     );
 
 
