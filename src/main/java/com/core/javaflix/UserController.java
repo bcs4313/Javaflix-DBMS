@@ -101,9 +101,26 @@ public class UserController {
                     "WHERE \"FollowID\" = '" + BaseApplication.storage.otherID + "';");
             rs.next();
             followerLabel.setText("" + rs.getInt("count"));
+
+            //set friends button
+            try {
+                rs = statement.executeQuery(  "SELECT Count(*) " +
+                        "FROM p320_05.\"UserFollow\"" +
+                        "WHERE \"FollowID\" = '" + BaseApplication.storage.otherID + "' " +
+                        "and \"UserID\" = '" + BaseApplication.storage.userID + "';");
+                rs.next();
+                if (rs.getInt("count") > 0) {
+                    friend = true;
+                    friendButton.setText("Unfriend");
+                }
+                else {
+                    friend = false;
+                }
+            }
+            catch (Exception e) {
+            }
         }
         catch (Exception e) {
-
         }
     }
 
@@ -119,14 +136,28 @@ public class UserController {
      */
     @FXML
     public void friendUser(ActionEvent actionEvent) throws IOException {
-        if (friend) {
-            //TODO
+        try {
+            //open datastream
+            var c = DataStreamManager.conn;
+            Statement statement = c.createStatement();
+
+            //remove friend
+            if (friend) {
+                friendButton.setText("Friend");
+                statement.executeQuery("DELETE FROM p320_05.\"UserFollow\" " +
+                        "WHERE \"UserID\" = '" + BaseApplication.storage.userID + "' " +
+                        "AND \"FollowID\" = '" + BaseApplication.storage.otherID + "';");
+            }
+            //add friend
+            else {
+                friendButton.setText("Unfriend");
+                statement.execute("INSERT INTO p320_05.\"UserFollow\" " +
+                        "VALUES('" + BaseApplication.storage.userID + "', '" + BaseApplication.storage.otherID + "');");
+            }
         }
-        else {
-            //TODO
+        catch (Exception e) {
         }
         friend = !friend;
-        new UserWindow().load();
     }
 
     /**
