@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.core.javaflix.MovieInfoController">
+   <top>
+      <HBox prefHeight="39.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#sentToDashboard" text="Back" />
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <ScrollPane prefHeight="8.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <content>
+            <HBox prefHeight="100.0" prefWidth="600.0">
+               <children>
+                  <VBox fx:id="resultBox" prefHeight="100.0" prefWidth="187.0" />
+                  <VBox fx:id="movieMember" prefHeight="100.0" prefWidth="200.0" />
+                  <VBox fx:id="commandBox" prefHeight="100.0" prefWidth="206.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#watchMovie" prefHeight="26.0" prefWidth="204.0" text="Watch" />
+                        <Label fx:id="watchLabel" prefHeight="18.0" prefWidth="205.0" />
+                        <HBox prefHeight="30.0" prefWidth="206.0">
+                           <children>
+                              <TextField fx:id="rateField" />
+                              <Button mnemonicParsing="false" onAction="#rateMovie" prefHeight="26.0" prefWidth="58.0" text="rate" />
+                           </children>
+                        </HBox>
+                        <Label fx:id="rateLabel" prefHeight="18.0" prefWidth="205.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </content>
+      </ScrollPane>
+   </center>
+</BorderPane>
