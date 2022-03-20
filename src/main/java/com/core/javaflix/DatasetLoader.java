@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 
@@ -21,6 +22,10 @@ public class DatasetLoader {
 
     public static ArrayList<Integer> studioIdList = new ArrayList<>();
     public static ArrayList<String> studioStringList = new ArrayList<>();
+
+    // hashmaps allows a recollection of identities from name
+    public static HashMap<String, Integer> studioNameToStudioID = new HashMap<>();
+    public static HashMap<String, Integer> directorNameToDirectorID = new HashMap<>();
 
     public static void main(String[] args)
     {
@@ -80,7 +85,7 @@ public class DatasetLoader {
 
                         // person adding section (director)
                         Statement statement = c.createStatement();
-                        if(!nameList.contains(row[14])) // if director is in list already
+                        if(!nameList.contains(row[14])) // if director is NOT in list already
                         {
                             if( row[14].split(" ").length != 2)
                             {
@@ -98,16 +103,21 @@ public class DatasetLoader {
                                         "(" + randomID + ", '" + firstName + "', '" + lastName + "')");
                                 nameList.add(row[14]);
                                 personIdList.add(randomID);
-
-                                // link to movie
-                                linkDirectorToMovie(MovieID, randomID);
-
+                                try {
+                                    directorNameToDirectorID.put(row[14], randomID);
+                                }
+                                catch (Exception e)
+                                {
+                                    System.out.println("Mapping Error! directorName -> directorID");
+                                }
                             }
                         }
+                        // link to movie
+                        linkDirectorToMovie(MovieID, directorNameToDirectorID.get(row[14]));
 
                         // person adding section (cast)
                         Statement statement1 = c.createStatement();
-                        if(!nameList.contains(row[24])) // if director is in list already
+                        if(!nameList.contains(row[24])) // if crew is in list already
                         {
                             String[] members = row[24].split("-");
                             for(int i = 0; i < members.length; i++) {
@@ -220,9 +230,14 @@ public class DatasetLoader {
                     statement.execute("INSERT INTO p320_05.\"Studio\" VALUES " +
                             "(" + randomID + ", '" + name + "')");
                     studioStringList.add(name);
-
-
-                    linkMovieToStudio(randomID, movieID);
+                    studioNameToStudioID.put(name, randomID);
+                }
+                try {
+                    linkMovieToStudio(studioNameToStudioID.get(name), movieID);
+                }
+                catch (Exception e)
+                {
+                    System.out.println("Mapping Error! StudioName -> StudioID");
                 }
             }
         }
