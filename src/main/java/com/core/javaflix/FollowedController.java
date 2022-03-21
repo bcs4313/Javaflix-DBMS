@@ -1,45 +1,70 @@
 package com.core.javaflix;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.sql.*;
 
 public class FollowedController {
+    ObservableList<User> list = FXCollections.observableArrayList(
+    );
 
     @FXML
-    Button unFollow;
+    private TableView followingTable;
 
     @FXML
-    VBox following;
+    private TableColumn<User, String> emailColumn;
 
-    private String selected = null;
+    @FXML
+    private TableColumn<User, String> nameColumn;
+
+    @FXML
+    private TableColumn<User, String> usernameColumn;
+
+    @FXML
+    private TableColumn<User, Button> buttonColumn;
 
     @FXML
     public void initialize() {
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("Email"));
+        usernameColumn.setCellValueFactory(new PropertyValueFactory<>("Username"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        buttonColumn.setCellValueFactory(new PropertyValueFactory<>("Button"));
         try {
             var c = DataStreamManager.conn;
             Statement statement = c.createStatement();
-            unFollow.setDisable(true);
-            this.selected = null;
-            ResultSet rs = statement.executeQuery("select R.\"FollowID\", S.\"Username\"\n" +
-                    "from p320_05.\"UserFollow\" R, p320_05.\"User\" S\n" +
-                    "where R.\"UserID\" = "  + BaseApplication.storage.userID + "\n" +
-                    "and R.\"FollowID\" = S.\"UserID\"");
+            ResultSet rs = statement.executeQuery("select R.*\n" +
+                    "from p320_05.\"UserFollow\" L, p320_05.\"User\" R\n" +
+                    "where L.\"UserID\" = " + AppStorage.userID + "\n" +
+                    "AND R.\"UserID\" = L.\"FollowID\"");
             while (rs.next()) {
-                for (int i = 2; i <= 2; i++) {
-                    String columnValue = rs.getString(i);
-                    String ID = rs.getString(i - 1);
-                    Button button = new Button(columnValue);
-                    button.setOnAction(actionEvent -> selectFriend(ID));
-                    following.getChildren().add(button);
-                }
+                String select = String.valueOf(rs.getInt("UserID"));
+                User user = new User(rs.getInt("UserID"),
+                        rs.getString("Email"),
+                        rs.getString("Username"),
+                        rs.getString("FirstName") +  " " + rs.getString("LastName"));
+
+                Button button = new Button("Unfollow");
+                button.setOnAction(EventHandler -> {
+                    try {
+                        unfollow(select);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+                user.setButton(button);
+                list.add(user);
             }
         } catch (SQLException e) {
             System.out.println("error");
         }
+        followingTable.setItems(list);
     }
 
     @FXML
@@ -47,19 +72,14 @@ public class FollowedController {
         new FriendsWindow().load();
     }
 
-    public void selectFriend(String ID) {
-        unFollow.setDisable(false);
-        this.selected = ID;
-    }
-
     @FXML
-    public void unfollow() throws IOException {
+    public void unfollow(String a) throws IOException {
         try {
             var c = DataStreamManager.conn;
             Statement statement = c.createStatement();
             statement.executeQuery("delete from p320_05.\"UserFollow\"\n" +
                     "where \"UserID\" = '" + BaseApplication.storage.userID + "'\n" +
-                    "and \"FollowID\" = '" + this.selected + "'");
+                    "and \"FollowID\" = '" + a + "'");
         } catch (SQLException e) {
 
         }
