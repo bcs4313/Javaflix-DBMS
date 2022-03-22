@@ -85,35 +85,45 @@ public class DatasetLoader {
 
                         // person adding section (director)
                         Statement statement = c.createStatement();
-                        if(!nameList.contains(row[14])) // if director is NOT in list already
+                        if(!directorNameToDirectorID.containsKey(row[14])) // if director is NOT in list already
                         {
                             if( row[14].split(" ").length != 2)
                             {
                                 System.out.println("skip");
                             }
                             else {
-                                // insert into person
-                                String firstName = row[14].split(" ")[0];
-                                String lastName = row[14].split(" ")[1];
-                                int randomID = new Random().nextInt(9999999);
-                                while (personIdList.contains(randomID)) {
-                                    randomID = new Random().nextInt(9999999);
-                                }
-                                statement.execute("INSERT INTO p320_05.\"Person\" VALUES " +
-                                        "(" + randomID + ", '" + firstName + "', '" + lastName + "')");
-                                nameList.add(row[14]);
-                                personIdList.add(randomID);
                                 try {
+                                    // insert into person
+                                    String firstName = row[14].split(" ")[0];
+                                    String lastName = row[14].split(" ")[1];
+                                    int randomID = new Random().nextInt(9999999);
+                                    while (personIdList.contains(randomID)) {
+                                        randomID = new Random().nextInt(9999999);
+                                    }
+                                    statement.execute("INSERT INTO p320_05.\"Person\" VALUES " +
+                                            "(" + randomID + ", '" + firstName + "', '" + lastName + "')");
                                     directorNameToDirectorID.put(row[14], randomID);
+                                    nameList.add(row[14]);
+                                    personIdList.add(randomID);
+                                    System.out.println("Mapping " + row[14] + " to identity " + randomID);
+                                    // link to movie
+                                    System.out.println("MovieID " + MovieID);
+                                    System.out.println("personID " + directorNameToDirectorID.get(row[14]));
+                                    linkDirectorToMovie(MovieID, directorNameToDirectorID.get(row[14]));
                                 }
                                 catch (Exception e)
                                 {
-                                    System.out.println("Mapping Error! directorName -> directorID");
+                                    System.out.println("Mapping/Insertion Error! directorName -> directorID");
+                                    e.printStackTrace();
                                 }
                             }
                         }
-                        // link to movie
-                        linkDirectorToMovie(MovieID, directorNameToDirectorID.get(row[14]));
+                        else {
+                            // link to movie
+                            System.out.println("MovieID " + MovieID);
+                            System.out.println("personID " + directorNameToDirectorID.get(row[14]));
+                            linkDirectorToMovie(MovieID, directorNameToDirectorID.get(row[14]));
+                        }
 
                         // person adding section (cast)
                         Statement statement1 = c.createStatement();
