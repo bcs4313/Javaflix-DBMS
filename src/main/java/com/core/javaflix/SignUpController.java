@@ -1,20 +1,18 @@
 package com.core.javaflix;
 
+import com.core.javaflix.utilities.DataStreamManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 // generating values
 import java.util.Random;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.text.ParseException;
 import java.util.Calendar;
 
 public class SignUpController {

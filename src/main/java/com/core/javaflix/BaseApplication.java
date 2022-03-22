@@ -1,5 +1,7 @@
 package com.core.javaflix;
 
+import com.core.javaflix.utilities.AppStorage;
+import com.core.javaflix.utilities.DataStreamManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
