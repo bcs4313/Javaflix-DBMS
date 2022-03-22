@@ -11,6 +11,20 @@ import java.sql.*;
 
 public class MovieInfoController {
     @FXML
+    public Label rate;
+
+    @FXML
+    public Label titleLabel;
+
+    @FXML
+    public Label dateLabel;
+
+    @FXML
+    public Label durationLabel;
+
+    @FXML Label mpaaLabel;
+
+    @FXML
     public VBox resultBox;
 
     @FXML
@@ -32,10 +46,20 @@ public class MovieInfoController {
     public Button deleteButton;
 
     @FXML
-    public void sentToDashboard() throws IOException {
-        AppStorage.inCollection = false;
-        AppStorage.search = null;
-        new DashboardWindow().load();
+    public void sentToDashboard() throws IOException, SQLException {
+        if (AppStorage.inCollection) {
+            AppStorage.inCollection = false;
+            new SpecificCollectionWindow().load();
+        } else {
+            AppStorage.inCollection = false;
+            AppStorage.search = null;
+            new DashboardWindow().load();
+        }
+    }
+
+    @FXML
+    public void refreshPage() throws IOException {
+        new MovieInfoWindow().load();
     }
 
     @FXML
@@ -72,7 +96,7 @@ public class MovieInfoController {
     public void rateMovie() throws IOException {
         try {
             if (rateField.getText().trim().isEmpty()) {
-                rateLabel.setText("Enter value");
+                rateLabel.setText("Enter value 0-5");
             } else {
                 double result = Double.parseDouble(rateField.getText());
                 if (result > 5 || result < 0) {
@@ -97,8 +121,10 @@ public class MovieInfoController {
                 }
             }
         } catch (SQLException e){
+
+        } catch (NumberFormatException e) {
+            rateLabel.setText("Enter value 0-5");
         }
-        new MovieInfoWindow().load();
     }
 
     @FXML
@@ -130,11 +156,10 @@ public class MovieInfoController {
                     "from p320_05.\"Movie\"\n" +
                     "where \"MovieID\" = " + AppStorage.search);
             rs.next();
-            resultBox.getChildren().add(new Label("MOVIE INFORMATION"));
-            resultBox.getChildren().add(new Label("Title: " + rs.getString(1)));
-            resultBox.getChildren().add(new Label("Release Date: " + rs.getString(2)));
-            resultBox.getChildren().add(new Label("Duration: " + rs.getString(3)));
-            resultBox.getChildren().add(new Label("MPAA: " + rs.getString(4)));
+            titleLabel.setText("Title: " + rs.getString(1));
+            dateLabel.setText("Release Date: " + rs.getString(2));
+            durationLabel.setText("Duration: " + rs.getString(3));
+            mpaaLabel.setText("MPAA: " + rs.getString(4));
 
             rs = statement.executeQuery("select avg(rate)\n" +
                     "from p320_05.\"UserMovie\"\n" +
@@ -142,9 +167,9 @@ public class MovieInfoController {
             rs.next();
             String rate = rs.getString(1);
             if (rate == null) {
-                resultBox.getChildren().add(new Label("Rate: Nobody rated"));
+                this.rate.setText("Rate: Nobody rated");
             } else {
-                resultBox.getChildren().add(new Label("Rate: " + rate));
+                this.rate.setText("Rate: " + rate);
             }
             rs = statement.executeQuery("select L.\"FirstName\", L.\"LastName\"\n" +
                     "from p320_05.\"Person\" L, p320_05.\"DirectMovie\" R\n" +

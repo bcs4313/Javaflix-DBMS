@@ -49,7 +49,7 @@ public class SignUpController {
      */
     @FXML
     public void loginBack(ActionEvent actionEvent) {
-        //BaseApplication.base.load();
+        BaseApplication.load();
     }
 
     /**

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.core.javaflix.FansController">
    <top>
-      <HBox prefHeight="28.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="68.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#sentToFriends" prefHeight="26.0" prefWidth="64.0" text="Back" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Fans" textAlignment="CENTER" wrappingWidth="555.8475637435913" />
@@ -17,10 +17,12 @@
       </HBox>
    </top>
    <center>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <content>
-            <VBox fx:id="followed" prefHeight="363.0" prefWidth="593.0" />
-         </content>
-      </ScrollPane>
+      <TableView fx:id="fansTable" prefHeight="325.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="emailColumn" prefWidth="206.4000244140625" text="Email" />
+          <TableColumn fx:id="usernameColumn" prefWidth="195.20001220703125" text="Username" />
+            <TableColumn fx:id="nameColumn" prefWidth="198.39996337890625" text="Name" />
+        </columns>
+      </TableView>
    </center>
 </BorderPane>

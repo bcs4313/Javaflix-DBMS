@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class SpecificCollectionController {
 
@@ -33,6 +34,41 @@ public class SpecificCollectionController {
     private Label totalTime;
 
     public int movieID;
+
+    public ArrayList<Integer> listOfMovie = new ArrayList<>();
+
+    public void watch(int position) {
+        int id = listOfMovie.get(position);
+        try {
+            Date current = new Date(System.currentTimeMillis());
+            var c = DataStreamManager.conn;
+            Statement statement = c.createStatement();
+            ResultSet rs = statement.executeQuery("select count(*)\n" +
+                    "from p320_05.\"UserMovie\"\n" +
+                    "where \"UserID\" =" + AppStorage.userID + "\n" +
+                    "and \"MovieID\" = " + id);
+            rs.next();
+            int result = rs.getInt(1);
+            if (result == 0) {
+                statement.executeQuery("INSERT INTO p320_05.\"UserMovie\"(\"UserID\", \"MovieID\", \"watchDate\")" +
+                        " VALUES (" + AppStorage.userID + ", " + id + ", '" + new Date(System.currentTimeMillis()) + "')");
+            } else {
+                statement.executeQuery("UPDATE p320_05.\"UserMovie\" " +
+                        "SET \"watchDate\" = '" + current  + "', \"watchedTime\" = 1 + \"watchedTime\"" +
+                        " where \"UserID\" = " + AppStorage.userID + " and \"MovieID\" = " + id);
+            }
+        } catch (SQLException e) {
+        }
+    }
+
+    @FXML
+    public void markAsWatched()
+    {
+        int size = listOfMovie.size();
+        for(int i = 0; i < size; i++) {
+            watch(i);
+        }
+    }
     @FXML
     public void sendToCollections() throws IOException, SQLException {
         new CollectionWindow().load();
@@ -81,6 +117,7 @@ public class SpecificCollectionController {
         while(rs.next())
         {
             int movieid = Integer.valueOf(rs.getString("MovieID"));
+            listOfMovie.add(movieid);
             ResultSet ms = statement2.executeQuery("SELECT p320_05.\"Movie\".\"Title\" FROM p320_05.\"Movie\" WHERE \"MovieID\" = " + movieid + "");
             ms.next();
             Button button = new Button(ms.getString("Title"));

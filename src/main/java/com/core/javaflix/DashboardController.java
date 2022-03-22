@@ -50,6 +50,12 @@ public class DashboardController {
     private CheckBox genreCheck;
 
     @FXML
+    public void sendToLogin()
+    {
+        BaseApplication.load();
+    }
+
+    @FXML
     private void updateMovieList() throws SQLException {
         String movieSearch = searchInput.getText();
 
