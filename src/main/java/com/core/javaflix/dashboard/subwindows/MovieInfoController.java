@@ -1,6 +1,7 @@
 package com.core.javaflix.dashboard.subwindows;
 
 import com.core.javaflix.BaseApplication;
+import com.core.javaflix.dashboard.collections.CollectionWindow;
 import com.core.javaflix.dashboard.collections.SelectCollectionWindow;
 import com.core.javaflix.dashboard.collections.SpecificCollectionWindow;
 import com.core.javaflix.utilities.AbstractWindow;
@@ -54,6 +55,7 @@ public class MovieInfoController {
 
     @FXML
     public void goBack() throws IOException, SQLException {
+        AppStorage.search = "";
         AbstractWindow.loadLastPage();
     }
 
@@ -146,11 +148,6 @@ public class MovieInfoController {
     @FXML
     public void initialize() {
         try {
-            if (AppStorage.inCollection == false) {
-                deleteButton.setDisable(true);
-            } else {
-                deleteButton.setDisable(false);
-            }
             var c = DataStreamManager.conn;
             Statement statement = c.createStatement();
             ResultSet rs = statement.executeQuery("select \"Title\", \"ReleaseDate\", \"Duration\", \"mpaa\"\n" +

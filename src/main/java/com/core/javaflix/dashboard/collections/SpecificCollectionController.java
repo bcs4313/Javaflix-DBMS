@@ -98,7 +98,6 @@ public class SpecificCollectionController {
     }
 
     public void select(String movieID) throws IOException {
-        AppStorage.inCollection = true;
         AppStorage.search = movieID;
         BaseApplication.storage.pageStorage.add(new SpecificCollectionWindow());
         new MovieInfoWindow().load();

@@ -32,6 +32,7 @@ public class CollectionController {
     @FXML
     private void goBack() throws IOException {
         AbstractWindow.loadLastPage();
+        BaseApplication.storage.collectionID = -1;
     }
 
     @FXML
