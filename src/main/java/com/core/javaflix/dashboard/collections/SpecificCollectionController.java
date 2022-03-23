@@ -1,6 +1,8 @@
 package com.core.javaflix.dashboard.collections;
 
+import com.core.javaflix.BaseApplication;
 import com.core.javaflix.dashboard.subwindows.MovieInfoWindow;
+import com.core.javaflix.utilities.AbstractWindow;
 import com.core.javaflix.utilities.AppStorage;
 import com.core.javaflix.utilities.DataStreamManager;
 import javafx.fxml.FXML;
@@ -71,8 +73,8 @@ public class SpecificCollectionController {
         }
     }
     @FXML
-    public void sendToCollections() throws IOException, SQLException {
-        new CollectionWindow().load();
+    public void goBack() throws IOException, SQLException {
+        AbstractWindow.loadLastPage();
     }
 
     @FXML
@@ -80,7 +82,7 @@ public class SpecificCollectionController {
         var c = DataStreamManager.conn;
         Statement statement = c.createStatement();
         statement.execute("DELETE FROM p320_05.\"Collection\" WHERE p320_05.\"Collection\".\"CollectionID\" = " + AppStorage.collectionID + "");
-        new CollectionWindow().load();
+        AbstractWindow.loadLastPage();
 
     }
 
@@ -98,6 +100,7 @@ public class SpecificCollectionController {
     public void select(String movieID) throws IOException {
         AppStorage.inCollection = true;
         AppStorage.search = movieID;
+        BaseApplication.storage.pageStorage.add(new SpecificCollectionWindow());
         new MovieInfoWindow().load();
     }
 

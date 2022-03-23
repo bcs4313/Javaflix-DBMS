@@ -1,5 +1,7 @@
 package com.core.javaflix.dashboard.collections;
 
+import com.core.javaflix.BaseApplication;
+import com.core.javaflix.utilities.AbstractWindow;
 import com.core.javaflix.utilities.AppStorage;
 import com.core.javaflix.utilities.DataStreamManager;
 import com.core.javaflix.dashboard.DashboardWindow;
@@ -28,12 +30,13 @@ public class CollectionController {
 
 
     @FXML
-    private void sendToDashboard() throws IOException {
-        new DashboardWindow().load();
+    private void goBack() throws IOException {
+        AbstractWindow.loadLastPage();
     }
 
     @FXML
     private void sendToCreateCollection() throws IOException {
+        BaseApplication.storage.pageStorage.add(new CollectionWindow());
         new CreateCollectionWindow().load();
     }
 
@@ -57,6 +60,7 @@ public class CollectionController {
                         }
                     }
                     AppStorage.collectionName = event.getTarget().toString().split("\'")[1];
+                    BaseApplication.storage.pageStorage.add(new CollectionWindow());
                     new SpecificCollectionWindow().load();
                 } catch (IOException e) {
                     e.printStackTrace();

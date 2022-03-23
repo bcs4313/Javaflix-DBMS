@@ -36,7 +36,7 @@
       </VBox>
    </center>
    <top>
-      <Button fx:id="cancelButton" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#sendToCollections" text="Cancel" textAlignment="CENTER" BorderPane.alignment="CENTER_RIGHT">
+      <Button fx:id="cancelButton" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#goBack" text="Cancel" textAlignment="CENTER" BorderPane.alignment="CENTER_RIGHT">
          <BorderPane.margin>
             <Insets right="10.0" top="10.0" />
          </BorderPane.margin>

@@ -27,7 +27,7 @@
    <top>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="backButton" mnemonicParsing="false" onAction="#sendToDashboard" text="&lt;- Go Back" HBox.hgrow="ALWAYS">
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#goBack" text="&lt;- Go Back" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets left="5.0" top="5.0" />
                </HBox.margin>

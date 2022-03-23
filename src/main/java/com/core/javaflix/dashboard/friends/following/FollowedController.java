@@ -3,6 +3,7 @@ package com.core.javaflix.dashboard.friends.following;
 import com.core.javaflix.BaseApplication;
 import com.core.javaflix.dashboard.friends.friending.FriendsWindow;
 import com.core.javaflix.dashboard.friends.user_search.User;
+import com.core.javaflix.utilities.AbstractWindow;
 import com.core.javaflix.utilities.AppStorage;
 import com.core.javaflix.utilities.DataStreamManager;
 import javafx.collections.FXCollections;
@@ -73,8 +74,8 @@ public class FollowedController {
     }
 
     @FXML
-    public void sentToFriends() throws IOException {
-        new FriendsWindow().load();
+    public void goBack() throws IOException {
+        AbstractWindow.loadLastPage();
     }
 
     @FXML

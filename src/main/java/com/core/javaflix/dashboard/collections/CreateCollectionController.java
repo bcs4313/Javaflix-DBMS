@@ -1,5 +1,6 @@
 package com.core.javaflix.dashboard.collections;
 
+import com.core.javaflix.utilities.AbstractWindow;
 import com.core.javaflix.utilities.AppStorage;
 import com.core.javaflix.utilities.DataStreamManager;
 import javafx.fxml.FXML;
@@ -19,8 +20,8 @@ public class CreateCollectionController {
     private TextField collectionNameInput;
 
     @FXML
-    private void sendToCollections() throws IOException, SQLException {
-        new CollectionWindow().load();
+    private void goBack() throws IOException, SQLException {
+        AbstractWindow.loadLastPage();
     }
 
     @FXML
@@ -34,13 +35,12 @@ public class CreateCollectionController {
         if(rs.next()) {
             int collectionID = (rs.getInt(1)) + 1;
             statement.execute("INSERT INTO p320_05.\"Collection\" (\"CollectionID\", \"UserID\", \"CollectionName\") VALUES (" + collectionID + ", " + userid + ", \'" + inputText + "\')");
-            new CollectionWindow().load();
         }
         else
         {
             statement.execute("INSERT INTO p320_05.\"Collection\" (\"CollectionID\", \"UserID\", \"CollectionName\") VALUES (0, " + userid + ", \'" + inputText + "\')");
-            new CollectionWindow().load();
         }
+        AbstractWindow.loadLastPage();
     }
 
 }

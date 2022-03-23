@@ -1,6 +1,7 @@
 package com.core.javaflix.dashboard.settings;
 
 import com.core.javaflix.BaseApplication;
+import com.core.javaflix.utilities.AbstractWindow;
 import com.core.javaflix.utilities.DataStreamManager;
 import com.core.javaflix.dashboard.DashboardWindow;
 import javafx.event.ActionEvent;
@@ -99,7 +100,7 @@ public class SettingsController {
             System.out.println("Failed to update profile information");
         }
 
-        new DashboardWindow().load();
+        AbstractWindow.loadLastPage();
     }
 
     /**
@@ -109,7 +110,7 @@ public class SettingsController {
      */
     @FXML
     public void profileCancel(ActionEvent actionEvent) throws IOException {
-        new DashboardWindow().load();
+        AbstractWindow.loadLastPage();
     }
 
 }

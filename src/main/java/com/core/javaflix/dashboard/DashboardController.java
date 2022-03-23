@@ -225,22 +225,26 @@ public class DashboardController {
 
     @FXML
     private void sendToCollections() throws IOException, SQLException {
+        BaseApplication.storage.pageStorage.add(new DashboardWindow());
         new CollectionWindow().load();
     }
 
     @FXML
     private void sendToFriends() throws IOException {
+        BaseApplication.storage.pageStorage.add(new DashboardWindow());
         new FriendsWindow().load();
     }
 
     @FXML
     private void sendToProfile() throws IOException {
+        BaseApplication.storage.pageStorage.add(new DashboardWindow());
         BaseApplication.storage.otherID = BaseApplication.storage.userID;
         new UserWindow().load();
     }
 
     @FXML
     private void search() throws IOException {
+        BaseApplication.storage.pageStorage.add(new DashboardWindow());
         new MovieInfoWindow().load();
     }
 

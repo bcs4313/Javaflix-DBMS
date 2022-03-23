@@ -24,7 +24,7 @@
                   </Button>
                </right>
                <center>
-                  <Button fx:id="collectoinButton" mnemonicParsing="false" onAction="#sendToCollections" prefHeight="34.0" prefWidth="166.0" text="Collections" BorderPane.alignment="CENTER" />
+                  <Button fx:id="collectionButton" mnemonicParsing="false" onAction="#sendToCollections" prefHeight="34.0" prefWidth="166.0" text="Collections" BorderPane.alignment="CENTER" />
                </center>
                <left>
                   <Button fx:id="friendsButton" mnemonicParsing="false" onAction="#sendToFriends" prefHeight="32.0" prefWidth="105.0" text="Friends" BorderPane.alignment="CENTER">

@@ -3,6 +3,7 @@ package com.core.javaflix.dashboard.friends.user_search;
 import com.core.javaflix.BaseApplication;
 import com.core.javaflix.dashboard.settings.SettingsWindow;
 import com.core.javaflix.dashboard.subwindows.Movie;
+import com.core.javaflix.utilities.AbstractWindow;
 import com.core.javaflix.utilities.DataStreamManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -202,7 +203,7 @@ public class UserController {
      */
     @FXML
     public void goBack(ActionEvent actionEvent) throws IOException {
-        new UserSearchWindow().load();
+        AbstractWindow.loadLastPage();
     }
 
     /**
@@ -212,6 +213,7 @@ public class UserController {
      */
     @FXML
     public void goToSettings(ActionEvent actionEvent) throws IOException {
+        BaseApplication.storage.pageStorage.add(new UserWindow());
         new SettingsWindow().load();
     }
 

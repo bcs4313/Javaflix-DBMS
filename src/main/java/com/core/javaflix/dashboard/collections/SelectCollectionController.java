@@ -1,6 +1,7 @@
 package com.core.javaflix.dashboard.collections;
 
 import com.core.javaflix.dashboard.subwindows.MovieInfoWindow;
+import com.core.javaflix.utilities.AbstractWindow;
 import com.core.javaflix.utilities.AppStorage;
 import com.core.javaflix.utilities.DataStreamManager;
 import javafx.fxml.FXML;
@@ -21,8 +22,8 @@ public class SelectCollectionController {
     public VBox resultBox;
 
     @FXML
-    public void backToMovie() throws IOException {
-        new MovieInfoWindow().load();
+    public void goBack() throws IOException {
+        AbstractWindow.loadLastPage();
     }
 
     @FXML

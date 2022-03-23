@@ -2,6 +2,8 @@ package com.core.javaflix.dashboard.friends.user_search;
 
 import com.core.javaflix.BaseApplication;
 import com.core.javaflix.dashboard.friends.friending.FriendsWindow;
+import com.core.javaflix.dashboard.subwindows.MovieInfoWindow;
+import com.core.javaflix.utilities.AbstractWindow;
 import com.core.javaflix.utilities.DataStreamManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -107,7 +109,7 @@ public class UserSearchController {
      */
     @FXML
     public void goBack(ActionEvent actionEvent) throws IOException {
-        new FriendsWindow().load();
+        AbstractWindow.loadLastPage();
     }
 
 }

@@ -14,7 +14,7 @@
    <top>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="goBack" mnemonicParsing="false" onAction="#sendToCollections" prefHeight="26.0" prefWidth="118.0" text="&lt;- Go Back">
+            <Button fx:id="goBack" mnemonicParsing="false" onAction="#goBack" prefHeight="26.0" prefWidth="118.0" text="&lt;- Go Back">
                <HBox.margin>
                   <Insets bottom="70.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>

@@ -80,6 +80,7 @@ public class User {
     public static void visitUser(int userID) throws IOException {
         try {
             BaseApplication.storage.otherID = userID;
+            BaseApplication.storage.pageStorage.add(new UserSearchWindow());
             new UserWindow().load();
         }
         catch (Exception e) {

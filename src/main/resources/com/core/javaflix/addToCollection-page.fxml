@@ -23,7 +23,7 @@
    <top>
       <HBox prefHeight="28.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#backToMovie" text="Back" />
+            <Button mnemonicParsing="false" onAction="#goBack" text="Back" />
             <Label fx:id="titleLabel" prefHeight="36.0" prefWidth="542.0" />
          </children>
       </HBox>
