@@ -15,7 +15,7 @@ public class SettingsWindow extends AbstractWindow {
     @Override
     public void load() throws IOException {
         // load application page
-        FXMLLoader fxmlLoader = new FXMLLoader(BaseApplication.class.getResource("profile-page.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(BaseApplication.class.getResource("settings-page.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 852, 480); // standard 480p window size
         BaseApplication.window.setScene(scene);
         BaseApplication.window.show();
