@@ -3,7 +3,7 @@ package com.core.javaflix.dashboard;
 import com.core.javaflix.*;
 import com.core.javaflix.dashboard.collections.CollectionWindow;
 import com.core.javaflix.dashboard.friends.friending.FriendsWindow;
-import com.core.javaflix.dashboard.profile.ProfileWindow;
+import com.core.javaflix.dashboard.friends.user_search.UserWindow;
 import com.core.javaflix.dashboard.subwindows.MovieInfoWindow;
 import com.core.javaflix.utilities.AppStorage;
 import com.core.javaflix.utilities.DataStreamManager;
@@ -235,7 +235,8 @@ public class DashboardController {
 
     @FXML
     private void sendToProfile() throws IOException {
-        new ProfileWindow().load();
+        BaseApplication.storage.otherID = BaseApplication.storage.userID;
+        new UserWindow().load();
     }
 
     @FXML

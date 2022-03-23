@@ -25,7 +25,7 @@
             </Label>
          </top>
          <bottom>
-            <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+            <HBox fx:id="buttonBox" alignment="CENTER" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="friendButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#friendUser" text="Friend">
                      <HBox.margin>

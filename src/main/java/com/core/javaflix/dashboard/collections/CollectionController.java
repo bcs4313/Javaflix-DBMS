@@ -58,7 +58,7 @@ public class CollectionController {
                     }
                     AppStorage.collectionName = event.getTarget().toString().split("\'")[1];
                     new SpecificCollectionWindow().load();
-                } catch (IOException | SQLException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }

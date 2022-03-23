@@ -17,8 +17,8 @@ module com.core.javaflix {
     opens com.core.javaflix.dashboard.collections to javafx.fxml;
     exports com.core.javaflix.dashboard.friends.friending;
     opens com.core.javaflix.dashboard.friends.friending to javafx.fxml;
-    exports com.core.javaflix.dashboard.profile;
-    opens com.core.javaflix.dashboard.profile to javafx.fxml;
+    exports com.core.javaflix.dashboard.settings;
+    opens com.core.javaflix.dashboard.settings to javafx.fxml;
     exports com.core.javaflix.dashboard.subwindows;
     opens com.core.javaflix.dashboard.subwindows to javafx.fxml;
     exports com.core.javaflix.dashboard.friends.user_search;

@@ -1,4 +1,4 @@
-package com.core.javaflix.dashboard.profile;
+package com.core.javaflix.dashboard.settings;
 
 import com.core.javaflix.BaseApplication;
 import com.core.javaflix.utilities.DataStreamManager;
@@ -17,7 +17,7 @@ import java.sql.Statement;
 // generating values
 
 
-public class ProfileController {
+public class SettingsController {
     @FXML
     private Label firstNameLabel;
 

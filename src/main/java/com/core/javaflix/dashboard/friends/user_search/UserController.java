@@ -1,6 +1,7 @@
 package com.core.javaflix.dashboard.friends.user_search;
 
 import com.core.javaflix.BaseApplication;
+import com.core.javaflix.dashboard.settings.SettingsWindow;
 import com.core.javaflix.dashboard.subwindows.Movie;
 import com.core.javaflix.utilities.DataStreamManager;
 import javafx.collections.FXCollections;
@@ -12,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -45,6 +47,9 @@ public class UserController {
     @FXML
     private TableView movieTable;
 
+    @FXML
+    private HBox buttonBox;
+
     @FXML  //column containing titles
     private TableColumn<Movie, String> titleColumn;
 
@@ -63,6 +68,16 @@ public class UserController {
      */
     @FXML
     public void initialize() {
+
+        //create settings button
+        if (BaseApplication.storage.otherID == BaseApplication.storage.userID) {
+            Button settings = new Button("Settings");
+            settings.setOnAction(actionEvent -> {
+                try {goToSettings(actionEvent);}
+                catch (Exception e) {}
+            });
+            buttonBox.getChildren().add(settings);
+        }
 
         //set value factories
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("Title"));
@@ -188,6 +203,16 @@ public class UserController {
     @FXML
     public void goBack(ActionEvent actionEvent) throws IOException {
         new UserSearchWindow().load();
+    }
+
+    /**
+     * Listener for when the user clicks on the "settings" button
+     * redirect user to friends page
+     * @param actionEvent contains data regarding the nature of the interaction
+     */
+    @FXML
+    public void goToSettings(ActionEvent actionEvent) throws IOException {
+        new SettingsWindow().load();
     }
 
 }
