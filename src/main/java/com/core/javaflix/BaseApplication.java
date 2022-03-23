@@ -1,5 +1,7 @@
 package com.core.javaflix;
 
+import com.core.javaflix.utilities.AppStorage;
+import com.core.javaflix.utilities.DataStreamManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -50,7 +52,7 @@ public class BaseApplication extends Application {
     /**
      * load this window into the main stage (manually called)
      */
-    public void load() {
+    public static void load() {
         try {
             // load application page
             FXMLLoader fxmlLoader = new FXMLLoader(BaseApplication.class.getResource("login-page.fxml"));

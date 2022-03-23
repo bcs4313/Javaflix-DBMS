@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #748c89;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.core.javaflix.DashboardController">
+<BorderPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #748c89;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.core.javaflix.dashboard.DashboardController">
    <top>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <BorderPane prefHeight="69.0" prefWidth="650.0">
+            <BorderPane prefHeight="69.0" prefWidth="650.0" HBox.hgrow="ALWAYS">
                <right>
                   <Button fx:id="profileButton" mnemonicParsing="false" onAction="#sendToProfile" prefHeight="30.0" prefWidth="98.0" text="Profile" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
@@ -33,6 +33,13 @@
                      </BorderPane.margin>
                   </Button>
                </left>
+               <top>
+                  <Button alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#sendToLogin" text="Logout" BorderPane.alignment="CENTER_RIGHT">
+                     <BorderPane.margin>
+                        <Insets right="5.0" top="5.0" />
+                     </BorderPane.margin>
+                  </Button>
+               </top>
             </BorderPane>
          </children>
       </HBox>

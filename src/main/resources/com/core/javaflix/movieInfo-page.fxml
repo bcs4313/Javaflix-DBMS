@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.core.javaflix.MovieInfoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.core.javaflix.dashboard.subwindows.MovieInfoController">
    <top>
       <HBox prefHeight="39.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -21,7 +21,15 @@
          <content>
             <HBox prefHeight="158.0" prefWidth="600.0">
                <children>
-                  <VBox fx:id="resultBox" prefHeight="158.0" prefWidth="293.0" />
+                  <VBox fx:id="resultBox" prefHeight="158.0" prefWidth="293.0">
+                     <children>
+                        <Label prefHeight="18.0" prefWidth="279.0" text="Movie Information" />
+                        <Label fx:id="titleLabel" prefHeight="18.0" prefWidth="274.0" />
+                        <Label fx:id="dateLabel" prefHeight="18.0" prefWidth="278.0" />
+                        <Label fx:id="durationLabel" prefHeight="18.0" prefWidth="278.0" />
+                        <Label fx:id="mpaaLabel" prefHeight="18.0" prefWidth="286.0" />
+                        <Label fx:id="rate" prefHeight="18.0" prefWidth="279.0" />
+                     </children></VBox>
                   <VBox fx:id="movieMember" prefHeight="158.0" prefWidth="155.0" />
                   <VBox fx:id="commandBox" prefHeight="86.0" prefWidth="206.0">
                      <children>
@@ -36,6 +44,7 @@
                         <Label fx:id="rateLabel" prefHeight="18.0" prefWidth="205.0" />
                         <Button mnemonicParsing="false" onAction="#collectionSelection" prefHeight="26.0" prefWidth="211.0" text="Add to Collection" />
                         <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteFromCollection" prefHeight="26.0" prefWidth="196.0" text="Delete from Collection" />
+                        <Button mnemonicParsing="false" onAction="#refreshPage" prefHeight="26.0" prefWidth="215.0" text="Refresh" />
                      </children>
                   </VBox>
                </children>

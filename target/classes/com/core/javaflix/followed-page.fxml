@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.core.javaflix.FollowedController">
-   <center>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <content>
-            <VBox fx:id="following" prefHeight="356.0" prefWidth="594.0" />
-         </content>
-      </ScrollPane>
-   </center>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.core.javaflix.dashboard.friends.following.FollowedController">
    <top>
       <HBox prefHeight="36.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#sentToFriends" prefHeight="18.0" prefWidth="149.0" text="Back" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Follow" textAlignment="CENTER" wrappingWidth="284.8061857223511" />
-            <Button fx:id="unFollow" mnemonicParsing="false" onAction="#unfollow" prefHeight="26.0" prefWidth="160.0" text="Unfollow" />
          </children>
       </HBox>
    </top>
+   <center>
+      <TableView fx:id="followingTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="emailColumn" prefWidth="162.4000244140625" text="Email" />
+          <TableColumn fx:id="usernameColumn" prefWidth="172.79998779296875" text="Username" />
+            <TableColumn fx:id="nameColumn" prefWidth="144.800048828125" text="Name" />
+            <TableColumn fx:id="buttonColumn" prefWidth="120.800048828125" />
+        </columns>
+      </TableView>
+   </center>
 </BorderPane>
