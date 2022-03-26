@@ -5,10 +5,12 @@ import com.core.javaflix.utilities.DataStreamManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Core launching class of the application, connecting to the database
@@ -38,7 +40,12 @@ public class BaseApplication extends Application {
             // load application page
             FXMLLoader fxmlLoader = new FXMLLoader(BaseApplication.class.getResource("login-page.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 852, 480); // standard 480p window size
+            //set name
             stage.setTitle("JavaFlix");
+            //set icon
+            String icon = this.getClass().getResource("/images/Javaflix_Desktop_Icon.png").toExternalForm();
+            stage.getIcons().add(new Image(icon));
+
             stage.setScene(scene);
             window = stage;
             stage.show();
