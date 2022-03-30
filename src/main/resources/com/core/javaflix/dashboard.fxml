@@ -23,9 +23,6 @@
                      </BorderPane.margin>
                   </Button>
                </right>
-               <center>
-                  <Button fx:id="collectionButton" mnemonicParsing="false" onAction="#sendToCollections" prefHeight="34.0" prefWidth="166.0" text="Collections" BorderPane.alignment="CENTER" />
-               </center>
                <left>
                   <Button fx:id="friendsButton" mnemonicParsing="false" onAction="#sendToFriends" prefHeight="32.0" prefWidth="105.0" text="Friends" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
@@ -40,6 +37,21 @@
                      </BorderPane.margin>
                   </Button>
                </top>
+               <center>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Button fx:id="collectionButton" mnemonicParsing="false" onAction="#sendToCollections" prefHeight="34.0" prefWidth="166.0" text="Collections">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#sendToTrends" prefHeight="34.0" prefWidth="168.0" text="Trending Movies" />
+                     </children>
+                  </VBox>
+               </center>
+               <HBox.margin>
+                  <Insets bottom="20.0" />
+               </HBox.margin>
             </BorderPane>
          </children>
       </HBox>

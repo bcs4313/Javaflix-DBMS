@@ -22,6 +22,9 @@ public class MovieInfoController {
     public Label rate;
 
     @FXML
+    public Label watches;
+
+    @FXML
     public Label titleLabel;
 
     @FXML
@@ -169,6 +172,18 @@ public class MovieInfoController {
             } else {
                 this.rate.setText("Rate: " + rate);
             }
+            // display watch time
+            rs = statement.executeQuery("select sum(p320_05.\"UserMovie\".\"watchedTime\")\n" +
+                    "from p320_05.\"UserMovie\"\n" +
+                    "where \"MovieID\" = " + AppStorage.search + " group by \"MovieID\"");
+            rs.next();
+            String watches = rs.getString(1);
+            if (watches == null) {
+                this.watches.setText("Times Watched: 0");
+            } else {
+                this.watches.setText("Times Watched: " + watches);
+            }
+
             rs = statement.executeQuery("select L.\"FirstName\", L.\"LastName\"\n" +
                     "from p320_05.\"Person\" L, p320_05.\"DirectMovie\" R\n" +
                     "where R.\"MovieID\" = +" + AppStorage.search + "\n" +
@@ -190,6 +205,7 @@ public class MovieInfoController {
                 movieMember.getChildren().add(new Label(name));
             }
         } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

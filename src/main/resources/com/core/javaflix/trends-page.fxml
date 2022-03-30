@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #748c89;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.core.javaflix.dashboard.DashboardController">
+<BorderPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #748c89;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.core.javaflix.dashboard.trends.TrendsController">
    <top>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -19,18 +19,21 @@
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="friendsButton" mnemonicParsing="false" onAction="#sendToFriends" prefHeight="31.0" prefWidth="223.0" text="Top 20 Movies (90 days)" />
-                              <Button fx:id="friendsButton1" mnemonicParsing="false" onAction="#sendToFriends" prefHeight="31.0" prefWidth="223.0" text="Top 20 Movies From Friends">
+                              <Button fx:id="friendsButton" mnemonicParsing="false" onAction="#Populate20from90d" prefHeight="31.0" prefWidth="223.0" text="Top 20 Most Popular Movies (90 days)" />
+                              <Button fx:id="friendsButton1" mnemonicParsing="false" onAction="#populate20Friends" prefHeight="31.0" prefWidth="223.0" text="Top 20 Most Popular Movies From Friends">
                                  <HBox.margin>
                                     <Insets left="40.0" />
                                  </HBox.margin>
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
                               </Button>
                            </children>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="friendsButton2" mnemonicParsing="false" onAction="#sendToFriends" prefHeight="31.0" prefWidth="223.0" text="Top 5 Releases of the Month" />
-                              <Button fx:id="friendsButton21" mnemonicParsing="false" onAction="#sendToFriends" prefHeight="31.0" prefWidth="223.0" text="Your Recommended">
+                              <Button fx:id="friendsButton2" mnemonicParsing="false" onAction="#populate5Releases" prefHeight="31.0" prefWidth="223.0" text="Best 5 Releases of the Month" />
+                              <Button fx:id="friendsButton21" mnemonicParsing="false" onAction="#populateRecommended" prefHeight="31.0" prefWidth="223.0" text="Your Recommended">
                                  <HBox.margin>
                                     <Insets left="40.0" />
                                  </HBox.margin>
@@ -48,7 +51,7 @@
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Button alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#sendToLogin" prefHeight="12.0" prefWidth="80.0" text="&lt;- Go Back">
+                              <Button alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#goBack" prefHeight="12.0" prefWidth="80.0" text="&lt;- Go Back">
                                  <font>
                                     <Font size="11.0" />
                                  </font>
@@ -75,11 +78,7 @@
          <children>
             <ScrollPane fitToHeight="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="267.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                <content>
-                  <VBox fx:id="MovieBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="247.0" prefWidth="598.0">
-                     <children>
-                        <Button fx:id="ascensionButton" mnemonicParsing="false" onAction="#flipOrder" text="Descending v" />
-                     </children>
-                  </VBox>
+                  <VBox fx:id="MovieBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="247.0" prefWidth="598.0" />
                </content>
                <VBox.margin>
                   <Insets top="20.0" />

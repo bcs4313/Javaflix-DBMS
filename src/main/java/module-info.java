@@ -25,4 +25,6 @@ module com.core.javaflix {
     opens com.core.javaflix.dashboard.friends.user_search to javafx.fxml;
     exports com.core.javaflix.dashboard.friends.following;
     opens com.core.javaflix.dashboard.friends.following to javafx.fxml;
+    exports com.core.javaflix.dashboard.trends;
+    opens com.core.javaflix.dashboard.trends to javafx.fxml;
 }

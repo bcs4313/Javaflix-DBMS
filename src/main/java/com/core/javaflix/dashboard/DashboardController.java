@@ -5,6 +5,7 @@ import com.core.javaflix.dashboard.collections.CollectionWindow;
 import com.core.javaflix.dashboard.friends.friending.FriendsWindow;
 import com.core.javaflix.dashboard.friends.user_search.UserWindow;
 import com.core.javaflix.dashboard.subwindows.MovieInfoWindow;
+import com.core.javaflix.dashboard.trends.TrendsWindow;
 import com.core.javaflix.utilities.AppStorage;
 import com.core.javaflix.utilities.DataStreamManager;
 import javafx.event.ActionEvent;
@@ -240,6 +241,13 @@ public class DashboardController {
         BaseApplication.storage.pageStorage.add(new DashboardWindow());
         BaseApplication.storage.otherID = BaseApplication.storage.userID;
         new UserWindow().load();
+    }
+
+    @FXML
+    private void sendToTrends() throws IOException {
+        BaseApplication.storage.pageStorage.add(new DashboardWindow());
+        BaseApplication.storage.otherID = BaseApplication.storage.userID;
+        new TrendsWindow().load();
     }
 
     @FXML

@@ -29,6 +29,7 @@
                         <Label fx:id="durationLabel" prefHeight="18.0" prefWidth="278.0" />
                         <Label fx:id="mpaaLabel" prefHeight="18.0" prefWidth="286.0" />
                         <Label fx:id="rate" prefHeight="18.0" prefWidth="279.0" />
+                        <Label fx:id="watches" prefHeight="18.0" prefWidth="279.0" />
                      </children></VBox>
                   <VBox fx:id="movieMember" prefHeight="158.0" prefWidth="155.0" />
                   <VBox fx:id="commandBox" prefHeight="86.0" prefWidth="206.0">
