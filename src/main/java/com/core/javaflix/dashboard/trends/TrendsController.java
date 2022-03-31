@@ -53,8 +53,10 @@ public class TrendsController {
         var c = DataStreamManager.conn;
         Statement statement = c.createStatement();
         ResultSet rs = statement.executeQuery(  "SELECT M.\"Title\", UM.\"MovieID\"" +
-                " FROM p320_05.\"Movie\" M, p320_05.\"UserMovie\" UM WHERE UM.\"watchDate\" >= '"  + pastDate +
-                "' AND UM.\"MovieID\" = M.\"MovieID\" GROUP BY UM.\"MovieID\", M.\"Title\"" +
+                " FROM p320_05.\"Movie\" M, (SELECT UU.\"MovieID\", UU.\"watchedTime\"" +
+                " FROM p320_05.\"UserMovie\" UU WHERE " +
+                "UU.\"watchDate\" >= '"  + pastDate + "') UM WHERE " +
+                "UM.\"MovieID\" = M.\"MovieID\" GROUP BY UM.\"MovieID\", M.\"Title\"" +
                 " ORDER BY SUM(UM.\"watchedTime\") DESC LIMIT 20");
         loadButtons(rs);
     }
