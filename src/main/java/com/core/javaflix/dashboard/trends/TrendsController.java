@@ -30,12 +30,13 @@ import java.util.List;
  * The trends controller establishes top movies to the user at the press of a button.
  * The algorithm for determining top "releases" is relatively simple.
  *
- * movieScore = watchedTimes * starRating^1.7;
+ * movieScore = watchedTimes * (starRating+1)^4;
  * // gives higher weight in score to well-received movies
  *
  * Top X most popular movies operate ONLY by watches
  * movieScore = watchedTimes
  *
+ * recommendation algorithm:
  *
  */
 public class TrendsController {
@@ -68,15 +69,31 @@ public class TrendsController {
     }
 
     @FXML
-    private void populate5Releases()
-    {
+    private void populate5Releases() throws SQLException {
+        prePopulate();
 
+        // we need to generate a comparable date here...
+        Date pastDate = new Date(System.currentTimeMillis());
+        pastDate.setTime(pastDate.getTime() - Duration.ofDays(30).toMillis());
+
+        // recommendation score formula:
+        // movieScore = wabcs431tchedTimes * starRating^4;
+
+        // comparing the current date with the past in this query
+        var c = DataStreamManager.conn;
+        Statement statement = c.createStatement();
+        ResultSet rs = statement.executeQuery(  "SELECT M.\"Title\", UM.\"MovieID\"" +
+                " FROM p320_05.\"Movie\" M, (SELECT UU.\"MovieID\", UU.\"watchedTime\"" +
+                ", UU.\"rate\" FROM p320_05.\"UserMovie\" UU WHERE" +
+                " UU.\"watchDate\" >= '"  + pastDate + "') UM WHERE" +
+                " UM.\"MovieID\" = M.\"MovieID\" GROUP BY UM.\"MovieID\", M.\"Title\"" +
+                " ORDER BY (SUM(UM.\"watchedTime\") * POWER(AVG(UM.\"rate\")+1, 4)) DESC," +
+                " AVG(UM.\"rate\") DESC LIMIT 5");
+        loadButtons(rs);
     }
 
     @FXML
-    private void populateRecommended()
-    {
-
+    private void populateRecommended() throws SQLException {
     }
 
     /**
