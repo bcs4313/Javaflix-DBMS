@@ -1,5 +1,8 @@
 package com.core.javaflix.dashboard.subwindows;
 
+import com.core.javaflix.BaseApplication;
+import com.core.javaflix.dashboard.friends.user_search.UserWindow;
+import com.core.javaflix.utilities.AppStorage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,20 +23,13 @@ public class Movie {
         this.rating = rating;
         this.played = played;
         this.button = new Button("GoTo");
-        //TODO functionality of button
-       /*
-       try {
-           this.button.setOnAction(actionEvent -> {
-               try {
-                   this.goToMovie(this.movieID);
-               } catch (IOException e) {
-               }
-           });
-       }
-       catch (Exception e) {
-
-       }
-       */
+        try {
+            this.button.setOnAction(actionEvent -> {
+                try {
+                    this.goToMovie(this.movieID);
+                } catch (IOException e) {}
+            });
+        } catch (Exception e) {}
     }
 
     public int getMovieID() {
@@ -83,6 +79,8 @@ public class Movie {
     @FXML
     public static void goToMovie(int movieID) throws IOException {
         try {
+            BaseApplication.storage.search = "" + movieID;
+            BaseApplication.storage.pageStorage.add(new UserWindow());
             new MovieInfoWindow().load();
         }
         catch (Exception e) {
