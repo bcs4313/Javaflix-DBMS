@@ -74,9 +74,17 @@ public class TrendsController {
     }
 
     @FXML
-    private void populateRecommended()
-    {
+    private void populateRecommended() throws SQLException {
+        prePopulate();
+        // we need to generate a comparable date here...
+        Date pastDate = new Date(System.currentTimeMillis());
+        pastDate.setTime(pastDate.getTime() - Duration.ofDays(90).toMillis());
 
+        // comparing the current date with the past in this query
+        var c = DataStreamManager.conn;
+        Statement statement = c.createStatement();
+        ResultSet rs = statement.executeQuery(  "");
+        loadButtons(rs);
     }
 
     /**
