@@ -29,6 +29,7 @@ public class FansController {
 
     @FXML
     private TableColumn<User, String> usernameColumn;
+
     @FXML
     private TableColumn<User, String> buttonColumn;
 
@@ -51,7 +52,6 @@ public class FansController {
                         rs.getString("Username"),
                         rs.getString("FirstName") +  " " + rs.getString("LastName"),
                         new FansWindow());
-                user.setButton(null);
                 list.add(user);
             }
         } catch (SQLException e) {
