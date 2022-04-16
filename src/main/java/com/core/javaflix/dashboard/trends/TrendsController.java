@@ -109,6 +109,56 @@ public class TrendsController {
 
     @FXML
     private void populateRecommended() throws SQLException {
+        prePopulate();
+
+        // comparing the current date with the past in this query
+        var c = DataStreamManager.conn;
+        Statement statement = c.createStatement();
+        ResultSet rs = statement.executeQuery(  "select M.\"Title\", M.\"MovieID\"\n, UM.\"rate\" " +
+                "from p320_05.\"GenreMovie\" G, p320_05.\"Movie\" M FULL OUTER JOIN\n" +
+                "    p320_05.\"UserMovie\" UM ON UM.\"MovieID\" = M.\"MovieID\"\n" +
+                "where G.\"MovieID\" = M.\"MovieID\"\n" +
+                "and G.\"GenreName\" IN\n" +
+                "    (select MAX(G.\"GenreName\") from p320_05.\"GenreMovie\" G, p320_05.\"UserMovie\" UM\n" +
+                "    where G.\"MovieID\" = UM.\"MovieID\" and UM.\"UserID\" = " + AppStorage.userID + ")\n" +
+                "group by M.\"MovieID\", G.\"GenreName\", UM.\"rate\"\n" +
+                "ORDER BY UM.\"rate\" DESC");
+
+        int index = 0;
+        int desc = 0;
+        int max = 100;
+        while(rs.next() && index < max) {
+            String title = rs.getString("Title");
+            String id = rs.getString("MovieID");
+            double rate = rs.getDouble("rate");
+            System.out.println("Movie: " + title + " , ID: " + id);
+            Button b = new Button();
+            b.setText(title);
+            b.setMaxWidth(1000000.0);
+            if(rate != 0) {
+                MovieBox.getChildren().add(desc, b);
+                desc++;
+            }
+            else
+            {
+                MovieBox.getChildren().add(MovieBox.getChildren().size(), b);
+            }
+            index++;
+            EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    try {
+                        AppStorage.search = String.valueOf(id);
+                        search();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            b.setOnAction(buttonHandler);
+        }
+
     }
 
     /**
