@@ -91,7 +91,7 @@ public class CollectionController {
         ResultSet rs = statement.executeQuery("SELECT C.\"CollectionName\", C.\"CollectionID\", COUNT(CM.\"CollectionID\")\n" +
                 "FROM p320_05.\"CollectionMovie\" CM FULL OUTER JOIN\n" +
                 " p320_05.\"Collection\" C ON C.\"CollectionID\" = CM.\"CollectionID\"\n" +
-                "WHERE \"UserID\" = 9999\n" +
+                "WHERE \"UserID\" = " + AppStorage.userID + " " +
                 "group by C.\"CollectionName\", C.\"CollectionID\"\n" +
                 "ORDER BY C.\"CollectionName\" ASC");
         while(rs.next())
