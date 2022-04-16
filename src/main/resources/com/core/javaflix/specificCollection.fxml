@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -36,29 +37,39 @@
       </HBox>
    </top>
    <bottom>
-      <ScrollPane prefHeight="265.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <ScrollPane prefHeight="246.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <content>
             <VBox fx:id="movieList" prefHeight="30.0" prefWidth="599.0" />
          </content>
       </ScrollPane>
    </bottom>
    <center>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="newName" promptText="Enter New Name Here" />
-            <Button mnemonicParsing="false" onAction="#changeCollectionName" text="Click to Change" />
-            <Button mnemonicParsing="false" onAction="#markAsWatched" prefHeight="26.0" prefWidth="86.0" text="Play All">
-               <HBox.margin>
-                  <Insets left="20.0" />
-               </HBox.margin>
-            </Button>
-            <Label fx:id="numberOfMovies" prefHeight="31.0" prefWidth="138.0" text="Number of Movies: 0">
-               <HBox.margin>
-                  <Insets left="80.0" />
-               </HBox.margin>
-            </Label>
-            <Label fx:id="totalTime" prefHeight="30.0" prefWidth="128.0" text="Total Time: 0" />
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="newName" promptText="Enter New Name Here" />
+                  <Button mnemonicParsing="false" onAction="#changeCollectionName" text="Click to Change" />
+                  <Button mnemonicParsing="false" onAction="#markAsWatched" prefHeight="26.0" prefWidth="86.0" text="Play All">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Label fx:id="numberOfMovies" prefHeight="31.0" prefWidth="138.0" text="Number of Movies: 0">
+                     <HBox.margin>
+                        <Insets left="80.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="totalTime" prefHeight="30.0" prefWidth="128.0" text="Total Time: 0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Pane prefHeight="26.0" prefWidth="210.0" />
+                  <Label fx:id="watched" prefHeight="26.0" prefWidth="132.0" />
+               </children>
+            </HBox>
          </children>
-      </HBox>
+      </VBox>
    </center>
 </BorderPane>

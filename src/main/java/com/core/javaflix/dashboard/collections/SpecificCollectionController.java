@@ -36,6 +36,9 @@ public class SpecificCollectionController {
     @FXML
     private Label totalTime;
 
+    @FXML
+    private Label watched;
+
     public int movieID;
 
     public ArrayList<Integer> listOfMovie = new ArrayList<>();
@@ -71,6 +74,8 @@ public class SpecificCollectionController {
         for(int i = 0; i < size; i++) {
             watch(i);
         }
+
+        watched.setText("All Movies watched!");
     }
     @FXML
     public void goBack() throws IOException, SQLException {
