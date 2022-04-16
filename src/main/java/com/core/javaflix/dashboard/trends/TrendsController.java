@@ -63,9 +63,24 @@ public class TrendsController {
     }
 
     @FXML
-    private void populate20Friends()
-    {
+    private void populate20Friends() throws SQLException {
+        prePopulate();
+        // we need to generate a comparable date here...
+        Date pastDate = new Date(System.currentTimeMillis());
+        pastDate.setTime(pastDate.getTime() - Duration.ofDays(90).toMillis());
 
+        // comparing the current date with the past in this query
+        var c = DataStreamManager.conn;
+        Statement statement = c.createStatement();
+        ResultSet rs = statement.executeQuery(  "select M.\"Title\", M.\"MovieID\"\n" +
+                "from p320_05.\"UserFollow\" F\n" +
+                "full outer join p320_05.\"UserMovie\" UM\n" +
+                "on F.\"FollowID\" = UM.\"UserID\"\n" +
+                "full outer join p320_05.\"Movie\" M\n" +
+                "on UM.\"MovieID\" = M.\"MovieID\"\n" +
+                "where F.\"UserID\" = " + AppStorage.userID + " and UM.\"MovieID\" is not null and UM.rate is not null\n" +
+                "order by UM.rate desc LIMIT 20");
+        loadButtons(rs);
     }
 
     @FXML

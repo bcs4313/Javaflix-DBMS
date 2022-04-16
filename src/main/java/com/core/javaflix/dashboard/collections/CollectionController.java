@@ -28,6 +28,9 @@ public class CollectionController {
     @FXML
     private Button backButton;
 
+    @FXML
+    private Label numberCollections;
+
 
     @FXML
     private void goBack() throws IOException {
@@ -84,6 +87,13 @@ public class CollectionController {
             button.setOnAction(buttonHandler);
             collectionList.getChildren().add(button);
         }
+
+        rs = statement.executeQuery("select COUNT(C.\"CollectionName\")\n" +
+                "from p320_05.\"Collection\" C\n" +
+                "where C.\"UserID\" = " + AppStorage.userID);
+
+        rs.next();
+        numberCollections.setText("Total Collections: " + rs.getString(1));
     }
 
 }
