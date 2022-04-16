@@ -25,9 +25,6 @@ public class FansController {
     private TableView fansTable;
 
     @FXML
-    private TableColumn<User, String> emailColumn;
-
-    @FXML
     private TableColumn<User, String> nameColumn;
 
     @FXML
@@ -35,7 +32,6 @@ public class FansController {
 
     @FXML
     public void initialize() {
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("Email"));
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("Username"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
 
@@ -49,7 +45,6 @@ public class FansController {
 
             while (rs.next()) {
                 User user = new User(rs.getInt("UserID"),
-                        rs.getString("Email"),
                         rs.getString("Username"),
                         rs.getString("FirstName") +  " " + rs.getString("LastName"));
                 user.setButton(null);

@@ -24,8 +24,6 @@ public class FollowedController {
     @FXML
     private TableView followingTable;
 
-    @FXML
-    private TableColumn<User, String> emailColumn;
 
     @FXML
     private TableColumn<User, String> nameColumn;
@@ -38,7 +36,6 @@ public class FollowedController {
 
     @FXML
     public void initialize() {
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("Email"));
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("Username"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
         buttonColumn.setCellValueFactory(new PropertyValueFactory<>("Button"));
@@ -52,7 +49,6 @@ public class FollowedController {
             while (rs.next()) {
                 String select = String.valueOf(rs.getInt("UserID"));
                 User user = new User(rs.getInt("UserID"),
-                        rs.getString("Email"),
                         rs.getString("Username"),
                         rs.getString("FirstName") +  " " + rs.getString("LastName"));
 

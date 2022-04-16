@@ -19,7 +19,6 @@
    <center>
       <TableView fx:id="fansTable" prefHeight="325.0" prefWidth="600.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="emailColumn" prefWidth="206.4000244140625" text="Email" />
           <TableColumn fx:id="usernameColumn" prefWidth="195.20001220703125" text="Username" />
             <TableColumn fx:id="nameColumn" prefWidth="198.39996337890625" text="Name" />
         </columns>

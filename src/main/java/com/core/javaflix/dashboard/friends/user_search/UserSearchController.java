@@ -36,9 +36,6 @@ public class UserSearchController {
     @FXML
     private TableView searchTable;
 
-    @FXML  //column containing emails
-    private TableColumn<User, String> emailColumn;
-
     @FXML  //column containing username
     private TableColumn<User, String> usernameColumn;
 
@@ -59,7 +56,6 @@ public class UserSearchController {
         searchBar.setText(BaseApplication.storage.search);
 
         //set value factories
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("Email"));
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("Username"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
         buttonColumn.setCellValueFactory(new PropertyValueFactory<>("Button"));
@@ -70,11 +66,13 @@ public class UserSearchController {
             Statement statement = c.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * " +
                     "FROM p320_05.\"User\"" +
-                    "WHERE \"Email\" LIKE '%" + BaseApplication.storage.search + "%';");
+                    "WHERE \"Email\" LIKE '%" + BaseApplication.storage.search + "%' " +
+                    "OR \"Username\" LIKE '%" + BaseApplication.storage.search + "%' " +
+                    "OR \"FirstName\" LIKE '%" + BaseApplication.storage.search + "%' " +
+                    "OR \"LastName\" LIKE '%" + BaseApplication.storage.search + "%';");
 
             while (rs.next()) {
                 list.add(new User(rs.getInt("UserID"),
-                        rs.getString("Email"),
                         rs.getString("Username"),
                         rs.getString("FirstName") +  " " + rs.getString("LastName")));
             }
@@ -86,8 +84,7 @@ public class UserSearchController {
         searchTable.setItems(list);
     }
 
-    ObservableList<User> list = FXCollections.observableArrayList(
-    );
+    ObservableList<User> list = FXCollections.observableArrayList();
 
 
 

@@ -8,14 +8,12 @@ import java.io.IOException;
 
 public class User {
     private int userID;
-    private String email;
     private String username;
     private String name;
     private Button button;
 
-    public User(int userID, String email, String username, String name) {
+    public User(int userID, String username, String name) {
         this.userID = userID;
-        this.email = email;
         this.username = username;
         this.name = name;
         this.button = new Button("Visit");
@@ -32,10 +30,6 @@ public class User {
         }
     }
 
-    public String getEmail() {
-        return email;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -46,10 +40,6 @@ public class User {
 
     public Button getButton() {
         return button;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public void setUsername(String username) {
