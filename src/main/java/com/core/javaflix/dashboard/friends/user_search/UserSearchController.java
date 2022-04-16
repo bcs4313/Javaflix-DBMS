@@ -74,7 +74,8 @@ public class UserSearchController {
             while (rs.next()) {
                 list.add(new User(rs.getInt("UserID"),
                         rs.getString("Username"),
-                        rs.getString("FirstName") +  " " + rs.getString("LastName")));
+                        rs.getString("FirstName") +  " " + rs.getString("LastName"),
+                        new UserSearchWindow()));
             }
         }
         catch (Exception e) {

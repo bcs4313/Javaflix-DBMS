@@ -21,7 +21,11 @@
         <columns>
           <TableColumn fx:id="usernameColumn" prefWidth="195.20001220703125" text="Username" />
             <TableColumn fx:id="nameColumn" prefWidth="198.39996337890625" text="Name" />
+            <TableColumn fx:id="buttonColumn" prefWidth="198.39996337890625" />
         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
    </center>
 </BorderPane>

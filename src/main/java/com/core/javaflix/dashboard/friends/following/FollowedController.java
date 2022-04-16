@@ -35,10 +35,15 @@ public class FollowedController {
     private TableColumn<User, Button> buttonColumn;
 
     @FXML
+    private TableColumn<User, Button> unfollowColumn;
+
+    @FXML
     public void initialize() {
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("Username"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
         buttonColumn.setCellValueFactory(new PropertyValueFactory<>("Button"));
+        unfollowColumn.setCellValueFactory(new PropertyValueFactory<>("SecondaryButton"));
+
         try {
             var c = DataStreamManager.conn;
             Statement statement = c.createStatement();
@@ -50,7 +55,8 @@ public class FollowedController {
                 String select = String.valueOf(rs.getInt("UserID"));
                 User user = new User(rs.getInt("UserID"),
                         rs.getString("Username"),
-                        rs.getString("FirstName") +  " " + rs.getString("LastName"));
+                        rs.getString("FirstName") +  " " + rs.getString("LastName"),
+                        new FollowedWindow());
 
                 Button button = new Button("Unfollow");
                 button.setOnAction(EventHandler -> {
@@ -60,7 +66,7 @@ public class FollowedController {
                         e.printStackTrace();
                     }
                 });
-                user.setButton(button);
+                user.setSecondaryButton(button);
                 list.add(user);
             }
         } catch (SQLException e) {

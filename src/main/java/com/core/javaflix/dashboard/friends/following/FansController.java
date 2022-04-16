@@ -29,11 +29,14 @@ public class FansController {
 
     @FXML
     private TableColumn<User, String> usernameColumn;
+    @FXML
+    private TableColumn<User, String> buttonColumn;
 
     @FXML
     public void initialize() {
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("Username"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        buttonColumn.setCellValueFactory(new PropertyValueFactory<>("Button"));
 
         try {
             var c = DataStreamManager.conn;
@@ -46,7 +49,8 @@ public class FansController {
             while (rs.next()) {
                 User user = new User(rs.getInt("UserID"),
                         rs.getString("Username"),
-                        rs.getString("FirstName") +  " " + rs.getString("LastName"));
+                        rs.getString("FirstName") +  " " + rs.getString("LastName"),
+                        new FansWindow());
                 user.setButton(null);
                 list.add(user);
             }
