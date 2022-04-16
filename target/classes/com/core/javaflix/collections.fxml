@@ -6,17 +6,11 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.core.javaflix.dashboard.collections.CollectionController">
-   <center>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <content>
-            <VBox fx:id="collectionList" prefHeight="267.0" prefWidth="597.0" />
-         </content>
-      </ScrollPane>
-   </center>
    <bottom>
       <Button fx:id="createCollection" mnemonicParsing="false" onAction="#sendToCreateCollection" prefHeight="34.0" prefWidth="582.0" text="Create Collection" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -27,17 +21,30 @@
    <top>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="backButton" mnemonicParsing="false" onAction="#goBack" text="&lt;- Go Back" HBox.hgrow="ALWAYS">
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#goBack" text="Back" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets left="5.0" top="5.0" />
                </HBox.margin>
             </Button>
-            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="56.0" prefWidth="490.0" text="Your Collections" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="58.0" prefWidth="382.0" text="         Your Collections" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
+            <VBox prefHeight="100.0" prefWidth="125.0">
+               <children>
+                  <Pane prefHeight="81.0" prefWidth="70.0" />
+                  <Label fx:id="numberCollections" alignment="CENTER" contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="46.0" prefWidth="79.0" />
+               </children>
+            </VBox>
          </children>
       </HBox>
    </top>
+   <center>
+      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <content>
+            <VBox fx:id="collectionList" prefHeight="267.0" prefWidth="597.0" />
+         </content>
+      </ScrollPane>
+   </center>
 </BorderPane>
