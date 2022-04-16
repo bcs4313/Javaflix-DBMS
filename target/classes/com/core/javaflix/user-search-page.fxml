@@ -82,7 +82,6 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
                <columns>
-                  <TableColumn fx:id="emailColumn" editable="false" prefWidth="75.0" text="Email" />
                   <TableColumn fx:id="usernameColumn" prefWidth="75.0" text="Username" />
                   <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />
                   <TableColumn fx:id="buttonColumn" prefWidth="75.0" />
