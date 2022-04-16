@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.core.javaflix.dashboard.friends.friending.FriendsController">
@@ -21,16 +20,24 @@
       </HBox>
    </top>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#goToFollowed" prefHeight="80.0" prefWidth="195.0" text="Following" />
-                  <Button mnemonicParsing="false" onAction="#goToFans" prefHeight="80.0" prefWidth="195.0" text="Fans" />
-                  <Button fx:id="searchButton" mnemonicParsing="false" onAction="#sendToUserSearch" prefHeight="80.0" prefWidth="195.0" text="Search Users" />
-               </children>
-            </HBox>
+            <Button mnemonicParsing="false" onAction="#goToFollowed" prefHeight="80.0" prefWidth="195.0" text="Following">
+               <HBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#goToFans" prefHeight="80.0" prefWidth="195.0" text="Fans">
+               <HBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="searchButton" mnemonicParsing="false" onAction="#sendToUserSearch" prefHeight="80.0" prefWidth="195.0" text="Search Users">
+               <HBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </HBox.margin>
+            </Button>
          </children>
-      </VBox>
+      </HBox>
    </center>
 </BorderPane>
