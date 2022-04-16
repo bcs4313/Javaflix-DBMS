@@ -41,9 +41,27 @@
       </HBox>
    </top>
    <center>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <content>
-            <VBox fx:id="collectionList" prefHeight="267.0" prefWidth="597.0" />
+            <HBox fx:id="CHbox" maxWidth="1.7976931348623157E308" prefHeight="244.0" prefWidth="598.0">
+               <children>
+                  <VBox fx:id="CollectionVBox" alignment="TOP_CENTER" prefHeight="247.0" prefWidth="199.0">
+                     <children>
+                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="28.0" prefWidth="199.0" text="Collection" />
+                     </children>
+                  </VBox>
+                  <VBox fx:id="MCVBox" alignment="TOP_CENTER" prefHeight="247.0" prefWidth="199.0">
+                     <children>
+                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="28.0" prefWidth="199.0" text="Movie Count" />
+                     </children>
+                  </VBox>
+                  <VBox fx:id="PlayLengthVBox" alignment="TOP_CENTER" prefHeight="247.0" prefWidth="199.0">
+                     <children>
+                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="28.0" prefWidth="199.0" text="Total Play Length" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
          </content>
       </ScrollPane>
    </center>
